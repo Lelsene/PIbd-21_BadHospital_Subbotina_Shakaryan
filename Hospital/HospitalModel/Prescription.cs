@@ -4,23 +4,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalModel
 {
-    public class Medication
+    public class Prescription
     {
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         [Required]
         public int Price { get; set; }
 
-        [Required]
-        public int Count { get; set; }
+        [ForeignKey("PrescriptionId")]
+        public virtual List<TreatmentPrescription> TreatmentPrescriptions { get; set; }
 
-        [ForeignKey("MedicationId")]
+        [ForeignKey("PrescriptionId")]
         public virtual List<PrescriptionMedication> PrescriptionMedications { get; set; }
-
-        [ForeignKey("MedicationId")]
-        public virtual List<MedicationRequest> MedicationRequests { get; set; }
     }
 }
