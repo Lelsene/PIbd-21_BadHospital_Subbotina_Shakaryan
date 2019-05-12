@@ -49,6 +49,8 @@
     <Compile Include="BindingModels\RequestBindingModel.cs" />
     <Compile Include="BindingModels\TreatmentBindingModel.cs" />
     <Compile Include="BindingModels\TreatmentPrescriptionBindingModel.cs" />
+    <Compile Include="Interfaces\IMainService.cs" />
+    <Compile Include="Interfaces\IMedicationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
