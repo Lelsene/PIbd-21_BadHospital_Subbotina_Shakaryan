@@ -57,8 +57,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\MedicationRequestViewModel.cs" />
     <Compile Include="ViewModels\MedicationViewModel.cs" />
+    <Compile Include="ViewModels\PatientViewModel.cs" />
     <Compile Include="ViewModels\PrescriptionMedicationViewModel.cs" />
+    <Compile Include="ViewModels\PrescriptionViewModel.cs" />
     <Compile Include="ViewModels\RequestViewModel.cs" />
+    <Compile Include="ViewModels\TreatmentPrescriptionViewModel.cs" />
+    <Compile Include="ViewModels\TreatmentViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
