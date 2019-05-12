@@ -51,6 +51,9 @@
     <Compile Include="BindingModels\TreatmentPrescriptionBindingModel.cs" />
     <Compile Include="Interfaces\IMainService.cs" />
     <Compile Include="Interfaces\IMedicationService.cs" />
+    <Compile Include="Interfaces\IPatientService.cs" />
+    <Compile Include="Interfaces\IPrescriptionService.cs" />
+    <Compile Include="Interfaces\ITreatmentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
