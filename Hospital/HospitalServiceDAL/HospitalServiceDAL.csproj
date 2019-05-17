@@ -64,6 +64,11 @@
     <Compile Include="ViewModels\TreatmentPrescriptionViewModel.cs" />
     <Compile Include="ViewModels\TreatmentViewModel.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\HospitalModel\HospitalModel.csproj">
+      <Project>{86177be6-1728-467a-9a67-b5f48cf5d296}</Project>
+      <Name>HospitalModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalModel", "HospitalModel\HospitalModel.csproj", "{86177BE6-1728-467A-9A67-B5F48CF5D296}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalServiceDAL", "HospitalServiceDAL\HospitalServiceDAL.csproj", "{5A20BC56-9D44-4015-B2EF-96F5FD223F62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalImplementations", "HospitalImplementations\HospitalImplementations.csproj", "{826D9CC5-1809-465B-A198-CBC5113B6012}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalPatientView", "HospitalClientView\HospitalPatientView.csproj", "{659F575F-6315-48C1-8C79-D7FCFB27C591}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{5A20BC56-9D44-4015-B2EF-96F5FD223F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A20BC56-9D44-4015-B2EF-96F5FD223F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A20BC56-9D44-4015-B2EF-96F5FD223F62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{826D9CC5-1809-465B-A198-CBC5113B6012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{826D9CC5-1809-465B-A198-CBC5113B6012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{826D9CC5-1809-465B-A198-CBC5113B6012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{826D9CC5-1809-465B-A198-CBC5113B6012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{659F575F-6315-48C1-8C79-D7FCFB27C591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{659F575F-6315-48C1-8C79-D7FCFB27C591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{659F575F-6315-48C1-8C79-D7FCFB27C591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{659F575F-6315-48C1-8C79-D7FCFB27C591}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,8 +12,8 @@ namespace HospitalServiceDAL.Interfaces
 
         void AddElement(PatientBindingModel model);
 
-        void UpdElement(PatientBindingModel model);
+      //  void UpdElement(PatientBindingModel model);
 
-        void DelElement(int id);
+       // void DelElement(int id);
     }
 }
