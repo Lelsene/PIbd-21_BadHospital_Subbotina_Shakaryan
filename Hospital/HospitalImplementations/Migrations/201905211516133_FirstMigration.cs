@@ -25,6 +25,7 @@ namespace HospitalImplementations.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         MedicationId = c.Int(nullable: false),
                         RequestId = c.Int(nullable: false),
+                        MedicationName = c.String(),
                         CountMedications = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -38,6 +39,7 @@ namespace HospitalImplementations.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        RequestName = c.String(),
                         Date = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);

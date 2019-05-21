@@ -10,6 +10,8 @@ namespace HospitalModel
 
         public int RequestId { get; set; }
 
+        public string MedicationName { get; set; }
+
         [Required]
         public int CountMedications { get; set; }
 

@@ -7,6 +7,8 @@ namespace HospitalServiceDAL.ViewModels
     {
         public int Id { get; set; }
 
+        public string RequestName { get; set; }
+
         public DateTime Date { get; set; }
 
         public List<MedicationRequestViewModel> MedicationRequests { get; set; }

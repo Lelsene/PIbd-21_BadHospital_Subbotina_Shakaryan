@@ -9,6 +9,8 @@ namespace HospitalModel
     {
         public int Id { get; set; }
 
+        public string RequestName { get; set; }
+
         [Required]
         public DateTime Date { get; set; }
 

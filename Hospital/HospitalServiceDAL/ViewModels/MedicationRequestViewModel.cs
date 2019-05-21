@@ -8,6 +8,8 @@
 
         public int RequestId { get; set; }
 
+        public string MedicationName { get; set; }
+
         public int CountMedications { get; set; }
     }
 }
