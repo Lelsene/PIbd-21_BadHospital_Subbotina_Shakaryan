@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using HospitalServiceDAL.BindingModels;
 using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
 using HospitalImplementations.Implementations;
 using Unity;
-using HospitalServiceDAL;
 
 namespace HospitalClientView
 {

@@ -49,6 +49,7 @@ namespace HospitalImplementations.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         PrescriptionId = c.Int(nullable: false),
                         MedicationId = c.Int(nullable: false),
+                        MedicationName = c.String(),
                         CountMedications = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -74,6 +75,9 @@ namespace HospitalImplementations.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         TreatmentId = c.Int(nullable: false),
                         PrescriptionId = c.Int(nullable: false),
+                        PrescriptionTitle = c.String(),
+                        isReserved = c.Boolean(nullable: false),
+                        Count = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Prescriptions", t => t.PrescriptionId, cascadeDelete: true)

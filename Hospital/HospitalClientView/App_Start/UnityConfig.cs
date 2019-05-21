@@ -47,7 +47,9 @@ namespace HospitalClientView
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<DbContext, HospitalDBContext>(new HierarchicalLifetimeManager());
-            container.RegisterType<IPatientService, PatientServiceDB>(new HierarchicalLifetimeManager());    
+            container.RegisterType<IPatientService, PatientServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IMainService, MainClientServiceDB>(new HierarchicalLifetimeManager());
+
         }
     }
 }

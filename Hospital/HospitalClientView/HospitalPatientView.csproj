@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FormMainClient.aspx" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -112,6 +113,13 @@
     </Compile>
     <Compile Include="AuthorizationForm.aspx.designer.cs">
       <DependentUpon>AuthorizationForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormMainClient.aspx.cs">
+      <DependentUpon>FormMainClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormMainClient.aspx.designer.cs">
+      <DependentUpon>FormMainClient.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

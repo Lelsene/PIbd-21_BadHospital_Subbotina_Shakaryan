@@ -9,5 +9,7 @@
         public int MedicationId { get; set; }
 
         public int CountMedications { get; set; }
+
+        public string MedicationName { get; set; }
     }
 }

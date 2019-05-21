@@ -6,8 +6,14 @@ namespace HospitalServiceDAL.Interfaces
 {
     public interface IMainService
     {
-        List<RequestViewModel> GetList();
+        List<TreatmentViewModel> GetList();
 
-        void CreateRequest(RequestBindingModel model);
+        TreatmentViewModel GetElement(int id);
+
+        void AddElement(TreatmentBindingModel model);
+
+        void UpdElement(TreatmentBindingModel model);
+
+       // void CreateRequest(RequestBindingModel model);
     }
 }

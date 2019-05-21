@@ -20,6 +20,11 @@ namespace HospitalImplementations.Implementations
             this.context = context;
         }
 
+        public PatientServiceDB()
+        {
+            this.context = new HospitalDBContext();
+        }
+
         public List<PatientViewModel> GetList()
         {
             List<PatientViewModel> result = context.Patients.Select(rec =>
