@@ -16,11 +16,7 @@ namespace HospitalClientView
     {
         private readonly IPrescriptionService serviceS = UnityConfig.Container.Resolve<PrescriptionServiceDB>();
 
-        private readonly IMainService serviceM = UnityConfig.Container.Resolve<MainClientServiceDB>();
-
-        private List<TreatmentPrescriptionViewModel> TreatmentPrescriptions;
-
-        private int id;
+        private TreatmentPrescriptionViewModel model;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,7 +44,51 @@ namespace HospitalClientView
 
         protected void ButtonSave_Click(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrEmpty(TextBoxCount.Text))
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните поле Количество');</script>");
+                return;
+            }
+            if (DropDownListPrescription.SelectedValue == null)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Выберите ингредиент');</script>");
+                return;
+            }
+            try
+            {
+                if (Session["SEId"] == null)
+                {
+                    model = new TreatmentPrescriptionViewModel
+                    {
+                        PrescriptionId = Convert.ToInt32(DropDownListPrescription.SelectedValue),
+                        PrescriptionTitle = DropDownListPrescription.SelectedItem.Text,
+                        Count = Convert.ToInt32(TextBoxCount.Text)
+                    };
+                    Session["SEId"] = model.Id;
+                    Session["SETreatmentId"] = model.TreatmentId;
+                    Session["SEPrescriptionId"] = model.PrescriptionId;
+                    Session["SEPrescriptionTitle"] = model.PrescriptionTitle;
+                    Session["SEIsReserved"] = model.isReserved;
+                    Session["SECount"] = model.Count;                    
+                }
+                else
+                {
+                    model.Count = Convert.ToInt32(TextBoxCount.Text);
+                    Session["SEId"] = model.Id;
+                    Session["SETreatmentId"] = model.TreatmentId;
+                    Session["SEPrescriptionId"] = model.PrescriptionId;
+                    Session["SEPrescriptionTitle"] = model.PrescriptionTitle;
+                    Session["SEIsReserved"] = model.isReserved;
+                    Session["SECount"] = model.Count;
+                    Session["Change"] = "1";
+                }
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
+                Server.Transfer("FormCreateTreatment.aspx");
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
+            }
         }
 
         protected void ButtonCancel_Click(object sender, EventArgs e)
