@@ -90,7 +90,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FormCreateTreatment.aspx" />
     <Content Include="FormMainClient.aspx" />
+    <Content Include="FormPrescription.aspx" />
+    <Content Include="FormPrescriptions.aspx" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -114,12 +117,33 @@
     <Compile Include="AuthorizationForm.aspx.designer.cs">
       <DependentUpon>AuthorizationForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FormCreateTreatment.aspx.cs">
+      <DependentUpon>FormCreateTreatment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormCreateTreatment.aspx.designer.cs">
+      <DependentUpon>FormCreateTreatment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FormMainClient.aspx.cs">
       <DependentUpon>FormMainClient.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FormMainClient.aspx.designer.cs">
       <DependentUpon>FormMainClient.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormPrescription.aspx.cs">
+      <DependentUpon>FormPrescription.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormPrescription.aspx.designer.cs">
+      <DependentUpon>FormPrescription.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormPrescriptions.aspx.cs">
+      <DependentUpon>FormPrescriptions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormPrescriptions.aspx.designer.cs">
+      <DependentUpon>FormPrescriptions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
