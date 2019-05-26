@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HospitalModel;
+﻿using HospitalModel;
 using HospitalServiceDAL.BindingModels;
 using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HospitalImplementations.Implementations
 {
-   public  class PrescriptionServiceDB : IPrescriptionService
+    public class PrescriptionServiceDB : IPrescriptionService
     {
         private HospitalDBContext context;
 
@@ -18,10 +16,12 @@ namespace HospitalImplementations.Implementations
         {
             this.context = context;
         }
+
         public PrescriptionServiceDB()
         {
             this.context = new HospitalDBContext();
         }
+
         public List<PrescriptionViewModel> GetList()
         {
             List<PrescriptionViewModel> result = context.Prescriptions.Select(rec => new PrescriptionViewModel
@@ -29,24 +29,16 @@ namespace HospitalImplementations.Implementations
                 Id = rec.Id,
                 Title = rec.Title,
                 Price = rec.Price,
-                TreatmentPrescriptions = context.TreatmentPrescriptions
-                .Where(recPC => recPC.PrescriptionId == rec.Id)
-                .Select(recPC => new TreatmentPrescriptionViewModel
-                {
-                    Id = recPC.Id,
-                    PrescriptionId = recPC.PrescriptionId,
-                    TreatmentId = recPC.TreatmentId,
-                    Count = recPC.Count
-                }).ToList(),
-
                 PrescriptionMedications = context.PrescriptionMedications
-                .Where(recPC => recPC.PrescriptionId == rec.Id)
-                .Select(recPC => new PrescriptionMedicationViewModel
-                {
-                    Id = recPC.Id,
-                    PrescriptionId = recPC.PrescriptionId,
-                    MedicationId = recPC.MedicationId
-                }).ToList()
+                    .Where(recPM => recPM.PrescriptionId == rec.Id)
+                    .Select(recPM => new PrescriptionMedicationViewModel
+                    {
+                        Id = recPM.Id,
+                        PrescriptionId = recPM.PrescriptionId,
+                        MedicationId = recPM.MedicationId,
+                        MedicationName = recPM.MedicationName,
+                        CountMedications = recPM.CountMedications
+                    }).ToList()
             }).ToList();
             return result;
         }
@@ -61,24 +53,16 @@ namespace HospitalImplementations.Implementations
                     Id = element.Id,
                     Title = element.Title,
                     Price = element.Price,
-                    TreatmentPrescriptions = context.TreatmentPrescriptions
-                .Where(recPC => recPC.PrescriptionId == element.Id)
-                .Select(recPC => new TreatmentPrescriptionViewModel
-                {
-                    Id = recPC.Id,
-                    PrescriptionId = recPC.PrescriptionId,
-                    TreatmentId = recPC.TreatmentId,
-                    Count = recPC.Count
-                }).ToList(),
-
                     PrescriptionMedications = context.PrescriptionMedications
-                .Where(recPC => recPC.PrescriptionId == element.Id)
-                .Select(recPC => new PrescriptionMedicationViewModel
-                {
-                    Id = recPC.Id,
-                    PrescriptionId = recPC.PrescriptionId,
-                    MedicationId = recPC.MedicationId
-                }).ToList()
+                        .Where(recPM => recPM.PrescriptionId == element.Id)
+                        .Select(recPM => new PrescriptionMedicationViewModel
+                        {
+                            Id = recPM.Id,
+                            PrescriptionId = recPM.PrescriptionId,
+                            MedicationId = recPM.MedicationId,
+                            MedicationName = recPM.MedicationName,
+                            CountMedications = recPM.CountMedications
+                        }).ToList()
                 };
             }
             throw new Exception("Элемент не найден");
@@ -86,17 +70,166 @@ namespace HospitalImplementations.Implementations
 
         public void AddElement(PrescriptionBindingModel model)
         {
-            throw new NotImplementedException();
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Prescription element = context.Prescriptions.FirstOrDefault(rec =>
+                    rec.Title == model.Title);
+                    if (element != null)
+                    {
+                        throw new Exception("Уже есть рецепт с таким названием");
+                    }
+                    element = new Prescription
+                    {
+                        Title = model.Title,
+                        Price = model.Price
+                    };
+                    context.Prescriptions.Add(element);
+                    context.SaveChanges();
+                    // убираем дубли по лекарствам
+                    var groupMedications = model.PrescriptionMedications
+                                                .GroupBy(rec => rec.MedicationId)
+                                                .Select(rec => new
+                                                {
+                                                    MedicationId = rec.Key,
+                                                    CountMedications = rec.Sum(r => r.CountMedications)
+                                                });
+                    // запоминаем id и названия лекарств
+                    var medicationName = model.PrescriptionMedications.Select(rec => new
+                    {
+                        MedicationId = rec.MedicationId,
+                        MedicationName = rec.MedicationName
+                    });
+                    // добавляем лекарства
+                    foreach (var groupMedication in groupMedications)
+                    {
+                        string Name = null;
+                        foreach (var medication in medicationName) {
+                            if (groupMedication.MedicationId == medication.MedicationId)
+                                Name = medication.MedicationName;
+                        }
+                        context.PrescriptionMedications.Add(new PrescriptionMedication
+                        {
+                            PrescriptionId = element.Id,
+                            MedicationId = groupMedication.MedicationId,
+                            MedicationName = Name,
+                            CountMedications = groupMedication.CountMedications
+                        });
+                        context.SaveChanges();
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
         }
 
         public void UpdElement(PrescriptionBindingModel model)
         {
-            throw new NotImplementedException();
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Prescription element = context.Prescriptions.FirstOrDefault(rec =>
+                    rec.Title == model.Title && rec.Id != model.Id);
+                    if (element != null)
+                    {
+                        throw new Exception("Уже есть рецепт с таким названием");
+                    }
+                    element = context.Prescriptions.FirstOrDefault(rec => rec.Id == model.Id);
+                    if (element == null)
+                    {
+                        throw new Exception("Элемент не найден");
+                    }
+                    element.Title = model.Title;
+                    element.Price = model.Price;
+                    context.SaveChanges();
+                    // обновляем существуюущие лекарства
+                    var presIds = model.PrescriptionMedications.Select(rec =>
+                    rec.MedicationId).Distinct();
+                    var updateMedications = context.PrescriptionMedications.Where(rec =>
+                    rec.PrescriptionId == model.Id && presIds.Contains(rec.MedicationId));
+                    foreach (var updateMedication in updateMedications)
+                    {
+                        updateMedication.CountMedications =
+                        model.PrescriptionMedications.FirstOrDefault(rec => rec.Id == updateMedication.Id).CountMedications;
+                    }
+                    context.SaveChanges();
+                    context.PrescriptionMedications.RemoveRange(context.PrescriptionMedications.Where(rec =>
+                    rec.PrescriptionId == model.Id && !presIds.Contains(rec.MedicationId)));
+                    context.SaveChanges();
+                    // новые записи
+                    var groupMedications = model.PrescriptionMedications
+                                                .Where(rec => rec.Id == 0)
+                                                .GroupBy(rec => rec.MedicationId)
+                                                .Select(rec => new
+                                                {
+                                                    MedicationId = rec.Key,
+                                                    CountMedications = rec.Sum(r => r.CountMedications)
+                                                });
+                    foreach (var groupMedication in groupMedications)
+                    {
+                        PrescriptionMedication elementPC =
+                        context.PrescriptionMedications.FirstOrDefault(rec => rec.PrescriptionId == model.Id &&
+                        rec.MedicationId == groupMedication.MedicationId);
+                        if (elementPC != null)
+                        {
+                            elementPC.CountMedications += groupMedication.CountMedications;
+                            context.SaveChanges();
+                        }
+                        else
+                        {
+                            context.PrescriptionMedications.Add(new PrescriptionMedication
+                            {
+                                PrescriptionId = model.Id,
+                                MedicationId = groupMedication.MedicationId,
+                                CountMedications = groupMedication.CountMedications
+                            });
+                            context.SaveChanges();
+                        }
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
         }
 
         public void DelElement(int id)
         {
-            throw new NotImplementedException();
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Prescription element = context.Prescriptions.FirstOrDefault(rec => rec.Id ==
+                    id);
+                    if (element != null)
+                    {
+                        // удаяем записи по ингредиентам при удалении изделия
+                        context.PrescriptionMedications.RemoveRange(context.PrescriptionMedications.Where(rec =>
+                        rec.PrescriptionId == id));
+                        context.Prescriptions.Remove(element);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Элемент не найден");
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
         }
     }
 }

@@ -14,6 +14,6 @@ namespace HospitalServiceDAL.Interfaces
 
         void UpdElement(TreatmentBindingModel model);
 
-       // void CreateRequest(RequestBindingModel model);
+        //void DelElement(int id);
     }
 }

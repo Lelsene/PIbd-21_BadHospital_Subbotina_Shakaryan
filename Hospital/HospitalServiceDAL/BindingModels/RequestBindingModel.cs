@@ -11,6 +11,6 @@ namespace HospitalServiceDAL.BindingModels
 
         public DateTime Date { get; set; }
 
-        public List<MedicationRequestBindingModel> MedicationRequests { get; set; }
+        public List<RequestMedicationBindingModel> RequestMedications { get; set; }
     }
 }

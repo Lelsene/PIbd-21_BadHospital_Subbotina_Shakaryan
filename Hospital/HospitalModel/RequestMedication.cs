@@ -2,7 +2,7 @@
 
 namespace HospitalModel
 {
-    public class MedicationRequest
+    public class RequestMedication
     {
         public int Id { get; set; }
 

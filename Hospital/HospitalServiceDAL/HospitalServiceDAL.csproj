@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingModels\MedicationBindingModel.cs" />
-    <Compile Include="BindingModels\MedicationRequestBindingModel.cs" />
+    <Compile Include="BindingModels\RequestMedicationBindingModel.cs" />
     <Compile Include="BindingModels\PatientBindingModel.cs" />
     <Compile Include="BindingModels\PrescriptionBindingModel.cs" />
     <Compile Include="BindingModels\PrescriptionMedicationBindingModel.cs" />

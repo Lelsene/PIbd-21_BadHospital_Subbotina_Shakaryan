@@ -18,8 +18,5 @@ namespace HospitalModel
         public int TotalCost { get; set; }
 
         public virtual Patient Patient { get; set; }
-
-        [ForeignKey("TreatmentId")]
-        public virtual List<TreatmentPrescription> TreatmentPrescriptions { get; set; }
     }
 }

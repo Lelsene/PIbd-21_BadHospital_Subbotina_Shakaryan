@@ -1,6 +1,6 @@
 ﻿namespace HospitalServiceDAL.BindingModels
 {
-    public class MedicationRequestBindingModel
+    public class RequestMedicationBindingModel
     {
         public int Id { get; set; }
 

@@ -20,14 +20,16 @@ namespace HospitalAdministrationView
             var container = BuildUnityContainer();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(container.Resolve<AuthorizationForm>());
+            Application.Run(container.Resolve<FormAuthorization>());
         }
         public static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
             currentContainer.RegisterType<DbContext, HospitalDBContext>(new HierarchicalLifetimeManager());
-            //currentContainer.RegisterType<IPatientService, PatientServiceDB>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IPatientService, PatientServiceDB>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IRequestService, RequestServiceDB>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IMedicationService, MedicationServiceDB>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IPrescriptionService, PrescriptionServiceDB>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

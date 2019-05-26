@@ -91,7 +91,7 @@ namespace HospitalImplementations.Implementations
                     context.Requests.Add(element);
                     context.SaveChanges();
                     //// убираем дубли по компонентам 
-                    var groupMedications = model.MedicationRequests
+                    var groupMedications = model.RequestMedications
                         .GroupBy(rec => rec.MedicationId)
                         .Select(rec => new
                         {
@@ -101,7 +101,7 @@ namespace HospitalImplementations.Implementations
                     // добавляем компоненты  
                     foreach (var groupMedication in groupMedications)
                     {
-                        context.MedicationsRequest.Add(new MedicationRequest
+                        context.MedicationsRequest.Add(new RequestMedication
                         {
                             Id = element.Id,
                             MedicationId = groupMedication.MedicationId,
@@ -142,12 +142,12 @@ namespace HospitalImplementations.Implementations
                     context.SaveChanges();
 
                     // обновляем существуюущие компоненты 
-                    var compIds = model.MedicationRequests.Select(rec => rec.MedicationId).Distinct();
+                    var compIds = model.RequestMedications.Select(rec => rec.MedicationId).Distinct();
                     var updateMedications = context.MedicationsRequest.Where(rec =>
                     rec.RequestId == model.Id && compIds.Contains(rec.MedicationId));
                     foreach (var updateMedication in updateMedications)
                     {
-                        updateMedication.CountMedications = model.MedicationRequests.FirstOrDefault(rec =>
+                        updateMedication.CountMedications = model.RequestMedications.FirstOrDefault(rec =>
                         rec.Id == updateMedication.Id).CountMedications;
                     }
                     context.SaveChanges();
@@ -155,7 +155,7 @@ namespace HospitalImplementations.Implementations
                     rec.RequestId == model.Id && !compIds.Contains(rec.MedicationId)));
                     context.SaveChanges();
                     // новые записи  
-                    var groupMedications = model.MedicationRequests.Where(rec =>
+                    var groupMedications = model.RequestMedications.Where(rec =>
                     rec.Id == 0).GroupBy(rec => rec.MedicationId).Select(rec => new
                     {
                         MedicationId = rec.Key,
@@ -164,7 +164,7 @@ namespace HospitalImplementations.Implementations
                     foreach (var groupMedication in groupMedications)
 
                     {
-                        MedicationRequest elementPC = context.MedicationsRequest.FirstOrDefault(rec =>
+                        RequestMedication elementPC = context.MedicationsRequest.FirstOrDefault(rec =>
                         rec.RequestId == model.Id && rec.MedicationId == groupMedication.MedicationId);
                         if (elementPC != null)
                         {
@@ -173,7 +173,7 @@ namespace HospitalImplementations.Implementations
                         }
                         else
                         {
-                            context.MedicationsRequest.Add(new MedicationRequest
+                            context.MedicationsRequest.Add(new RequestMedication
                             {
                                 RequestId = model.Id,
                                 MedicationId = groupMedication.MedicationId,

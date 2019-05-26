@@ -52,12 +52,14 @@ namespace HospitalAdministrationView
 
         private void рецептыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var form = Container.Resolve<FormPrescriptions>();
+            form.ShowDialog();
         }
 
         private void лекарстваToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var form = Container.Resolve<FormMedications>();
+            form.ShowDialog();
         }
 
         private void отчетToolStripMenuItem_Click(object sender, EventArgs e)

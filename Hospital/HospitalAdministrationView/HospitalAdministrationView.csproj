@@ -62,11 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthorizationForm.cs">
+    <Compile Include="FormAuthorization.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AuthorizationForm.Designer.cs">
-      <DependentUpon>AuthorizationForm.cs</DependentUpon>
+    <Compile Include="FormAuthorization.Designer.cs">
+      <DependentUpon>FormAuthorization.cs</DependentUpon>
     </Compile>
     <Compile Include="FormMainAdmin.cs">
       <SubType>Form</SubType>
@@ -74,13 +74,58 @@
     <Compile Include="FormMainAdmin.Designer.cs">
       <DependentUpon>FormMainAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMedications.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMedications.Designer.cs">
+      <DependentUpon>FormMedications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMedication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMedication.Designer.cs">
+      <DependentUpon>FormMedication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPrescription.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrescription.Designer.cs">
+      <DependentUpon>FormPrescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPrescriptionMedication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrescriptionMedication.Designer.cs">
+      <DependentUpon>FormPrescriptionMedication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPrescriptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrescriptions.Designer.cs">
+      <DependentUpon>FormPrescriptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AuthorizationForm.resx">
-      <DependentUpon>AuthorizationForm.cs</DependentUpon>
+    <EmbeddedResource Include="FormAuthorization.resx">
+      <DependentUpon>FormAuthorization.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMainAdmin.resx">
       <DependentUpon>FormMainAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMedications.resx">
+      <DependentUpon>FormMedications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMedication.resx">
+      <DependentUpon>FormMedication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrescription.resx">
+      <DependentUpon>FormPrescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrescriptionMedication.resx">
+      <DependentUpon>FormPrescriptionMedication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrescriptions.resx">
+      <DependentUpon>FormPrescriptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

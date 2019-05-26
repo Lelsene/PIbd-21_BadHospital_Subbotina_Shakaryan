@@ -4,12 +4,12 @@ using Unity;
 
 namespace HospitalAdministrationView
 {
-    public partial class AuthorizationForm : Form
+    public partial class FormAuthorization : Form
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
 
-        public AuthorizationForm()
+        public FormAuthorization()
         {
             InitializeComponent();
         }

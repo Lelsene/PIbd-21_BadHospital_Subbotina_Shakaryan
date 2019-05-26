@@ -1,6 +1,6 @@
 ﻿namespace HospitalAdministrationView
 {
-    partial class AuthorizationForm
+    partial class FormAuthorization
     {
         /// <summary>
         /// Required designer variable.
