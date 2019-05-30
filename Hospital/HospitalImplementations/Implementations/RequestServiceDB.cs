@@ -5,8 +5,6 @@ using HospitalServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HospitalImplementations.Implementations
 {
@@ -32,7 +30,7 @@ namespace HospitalImplementations.Implementations
                 Id = rec.Id,
                 RequestName = rec.RequestName,
                 Date = rec.Date,
-                MedicationRequests = context.MedicationsRequest
+                MedicationRequests = context.RequestMedications
                     .Where(recPC => recPC.RequestId == rec.Id)
                     .Select(recPC => new MedicationRequestViewModel
                     {
@@ -56,7 +54,7 @@ namespace HospitalImplementations.Implementations
                     Id = element.Id,
                     RequestName = element.RequestName,
                     Date = element.Date,
-                    MedicationRequests = context.MedicationsRequest
+                    MedicationRequests = context.RequestMedications
                     .Where(recPC => recPC.RequestId == element.Id)
                     .Select(recPC => new MedicationRequestViewModel
                     {
@@ -71,8 +69,9 @@ namespace HospitalImplementations.Implementations
             throw new Exception("Элемент не найден");
         }
 
-        public void AddElement(RequestBindingModel model)
+        public int AddElement(RequestBindingModel model)
         {
+            int id = -1;
             using (var transaction = context.Database.BeginTransaction())
             {
                 try
@@ -90,97 +89,10 @@ namespace HospitalImplementations.Implementations
                     };
                     context.Requests.Add(element);
                     context.SaveChanges();
-                    //// убираем дубли по компонентам 
-                    var groupMedications = model.RequestMedications
-                        .GroupBy(rec => rec.MedicationId)
-                        .Select(rec => new
-                        {
-                            MedicationId = rec.Key,
-                            CountMedications = rec.Sum(r => r.CountMedications)
-                        });
-                    // добавляем компоненты  
-                    foreach (var groupMedication in groupMedications)
+                    var Rec = context.Requests.OrderByDescending(p => p.Id).Take(1);
+                    foreach (var req in Rec)
                     {
-                        context.MedicationsRequest.Add(new RequestMedication
-                        {
-                            Id = element.Id,
-                            MedicationId = groupMedication.MedicationId,
-                            CountMedications = groupMedication.CountMedications
-                        });
-                        context.SaveChanges();
-                    }
-                    transaction.Commit();
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                    throw;
-
-                }
-            }
-        }
-
-        public void UpdElement(RequestBindingModel model)
-        {
-            using (var transaction = context.Database.BeginTransaction())
-            {
-                try
-                {
-                    Request element = context.Requests.FirstOrDefault(rec =>
-                    rec.RequestName == model.RequestName && rec.Id != model.Id);
-                    if (element != null)
-                    {
-                        throw new Exception("Уже есть запрос с таким названием");
-                    }
-                    element = context.Requests.FirstOrDefault(rec => rec.Id == model.Id);
-                    if (element == null)
-                    {
-                        throw new Exception("Элемент не найден");
-                    }
-                    element.RequestName = model.RequestName;
-                    element.Date = model.Date;
-                    context.SaveChanges();
-
-                    // обновляем существуюущие компоненты 
-                    var compIds = model.RequestMedications.Select(rec => rec.MedicationId).Distinct();
-                    var updateMedications = context.MedicationsRequest.Where(rec =>
-                    rec.RequestId == model.Id && compIds.Contains(rec.MedicationId));
-                    foreach (var updateMedication in updateMedications)
-                    {
-                        updateMedication.CountMedications = model.RequestMedications.FirstOrDefault(rec =>
-                        rec.Id == updateMedication.Id).CountMedications;
-                    }
-                    context.SaveChanges();
-                    context.MedicationsRequest.RemoveRange(context.MedicationsRequest.Where(rec =>
-                    rec.RequestId == model.Id && !compIds.Contains(rec.MedicationId)));
-                    context.SaveChanges();
-                    // новые записи  
-                    var groupMedications = model.RequestMedications.Where(rec =>
-                    rec.Id == 0).GroupBy(rec => rec.MedicationId).Select(rec => new
-                    {
-                        MedicationId = rec.Key,
-                        CountMedications = rec.Sum(r => r.CountMedications)
-                    });
-                    foreach (var groupMedication in groupMedications)
-
-                    {
-                        RequestMedication elementPC = context.MedicationsRequest.FirstOrDefault(rec =>
-                        rec.RequestId == model.Id && rec.MedicationId == groupMedication.MedicationId);
-                        if (elementPC != null)
-                        {
-                            elementPC.CountMedications += groupMedication.CountMedications;
-                            context.SaveChanges();
-                        }
-                        else
-                        {
-                            context.MedicationsRequest.Add(new RequestMedication
-                            {
-                                RequestId = model.Id,
-                                MedicationId = groupMedication.MedicationId,
-                                CountMedications = groupMedication.CountMedications
-                            });
-                            context.SaveChanges();
-                        }
+                        id = req.Id;
                     }
                     transaction.Commit();
                 }
@@ -190,11 +102,7 @@ namespace HospitalImplementations.Implementations
                     throw;
                 }
             }
-        }
-
-        void IRequestService.DelElement(int id)
-        {
-            throw new NotImplementedException();
+            return id;
         }
     }
 }

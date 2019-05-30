@@ -12,6 +12,8 @@ namespace HospitalServiceDAL.ViewModels
 
         public int TotalCost { get; set; }
 
+        public bool isReserved { get; set; }
+
         public List<TreatmentPrescriptionViewModel> TreatmentPrescriptions { get; set; }
     }
 }

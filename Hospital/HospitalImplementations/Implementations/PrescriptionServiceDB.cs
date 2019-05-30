@@ -212,7 +212,7 @@ namespace HospitalImplementations.Implementations
                     id);
                     if (element != null)
                     {
-                        // удаяем записи по ингредиентам при удалении изделия
+                        // удаяем записи по лекарствам при удалении рецепта
                         context.PrescriptionMedications.RemoveRange(context.PrescriptionMedications.Where(rec =>
                         rec.PrescriptionId == id));
                         context.Prescriptions.Remove(element);

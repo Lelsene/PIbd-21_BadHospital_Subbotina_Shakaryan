@@ -18,24 +18,35 @@ namespace HospitalAdministrationView
         [Dependency]
         public new IUnityContainer Container { get; set; }
 
-        private IRequestService service;
+        private readonly IMainService serviceT;
 
-        public FormMainAdmin(IRequestService service)
+        private readonly IMedicationService serviceM;
+
+        public FormMainAdmin(IMainService serviceT, IMedicationService serviceM)
         {
             InitializeComponent();
-            this.service = service;
+            this.serviceT = serviceT;
+            this.serviceM = serviceM;
         }
 
         private void LoadData()
         {
             try
             {
-                List<RequestViewModel> list = service.GetList();
-                if (list != null)
+                List<TreatmentViewModel> listT = serviceT.GetList();
+                if (listT != null)
                 {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridViewT.DataSource = listT;
+                    dataGridViewT.Columns[0].Visible = false;
+                    dataGridViewT.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+
+                List<MedicationViewModel> listM = serviceM.GetList();
+                if (listM != null)
+                {
+                    dataGridViewM.DataSource = listM;
+                    dataGridViewM.Columns[0].Visible = false;
+                    dataGridViewM.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
             catch (Exception ex)
@@ -69,7 +80,8 @@ namespace HospitalAdministrationView
 
         private void buttonCreateRequest_Click(object sender, EventArgs e)
         {
-
+            var form = Container.Resolve<FormRequest>();
+            form.ShowDialog();
         }
 
         private void FormMainAdmin_FormClosed(object sender, FormClosedEventArgs e)

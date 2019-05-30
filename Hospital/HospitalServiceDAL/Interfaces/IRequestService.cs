@@ -10,10 +10,6 @@ namespace HospitalServiceDAL.Interfaces
 
         RequestViewModel GetElement(int id);
 
-        void AddElement(RequestBindingModel model);
-
-        void UpdElement(RequestBindingModel model);
-
-        void DelElement(int id);
+        int AddElement(RequestBindingModel model);
     }
 }

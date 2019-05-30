@@ -50,15 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HospitalDBContext.cs" />
-    <Compile Include="Implementations\MainClientServiceDB.cs" />
+    <Compile Include="Implementations\MainServiceDB.cs" />
     <Compile Include="Implementations\MedicationServiceDB.cs" />
     <Compile Include="Implementations\PatientServiceDB.cs" />
     <Compile Include="Implementations\PrescriptionServiceDB.cs" />
     <Compile Include="Implementations\RequestServiceDB.cs" />
-    <Compile Include="Migrations\201905261128365_FirstMigration.cs" />
-    <Compile Include="Migrations\201905261128365_FirstMigration.Designer.cs">
-      <DependentUpon>201905261128365_FirstMigration.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,11 +73,6 @@
       <Project>{5a20bc56-9d44-4015-b2ef-96f5fd223f62}</Project>
       <Name>HospitalServiceDAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905261128365_FirstMigration.resx">
-      <DependentUpon>201905261128365_FirstMigration.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

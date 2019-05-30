@@ -16,7 +16,7 @@ namespace HospitalClientView
     {
         private readonly IPrescriptionService serviceS = UnityConfig.Container.Resolve<PrescriptionServiceDB>();
 
-        private readonly IMainService serviceM = UnityConfig.Container.Resolve<MainClientServiceDB>();
+        private readonly IMainService serviceM = UnityConfig.Container.Resolve<MainServiceDB>();
 
         private List<TreatmentPrescriptionViewModel> TreatmentPrescriptions;
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 
 namespace HospitalModel
@@ -16,6 +14,8 @@ namespace HospitalModel
 
         [Required]
         public int TotalCost { get; set; }
+
+        public bool isReserved { get; set; }
 
         public virtual Patient Patient { get; set; }
     }

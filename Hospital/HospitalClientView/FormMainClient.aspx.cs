@@ -14,7 +14,7 @@ namespace HospitalClientView
 {
     public partial class FormMainClient : System.Web.UI.Page
     {
-        private readonly IMainService service = UnityConfig.Container.Resolve<MainClientServiceDB>();
+        private readonly IMainService service = UnityConfig.Container.Resolve<MainServiceDB>();
 
         List<TreatmentViewModel> list;
 

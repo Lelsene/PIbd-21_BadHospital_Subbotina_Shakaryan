@@ -28,29 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewM = new System.Windows.Forms.DataGridView();
             this.buttonRef = new System.Windows.Forms.Button();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.рецептыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.лекарстваToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonCreateRequest = new System.Windows.Forms.Button();
-            this.buttonUpdRequest = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            this.dataGridViewT = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewM)).BeginInit();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewT)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView
+            // dataGridViewM
             // 
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(12, 27);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(587, 326);
-            this.dataGridView.TabIndex = 2;
+            this.dataGridViewM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewM.Location = new System.Drawing.Point(12, 27);
+            this.dataGridViewM.Name = "dataGridViewM";
+            this.dataGridViewM.Size = new System.Drawing.Size(587, 154);
+            this.dataGridViewM.TabIndex = 2;
             // 
             // buttonRef
             // 
-            this.buttonRef.Location = new System.Drawing.Point(612, 103);
+            this.buttonRef.Location = new System.Drawing.Point(612, 65);
             this.buttonRef.Name = "buttonRef";
             this.buttonRef.Size = new System.Drawing.Size(131, 32);
             this.buttonRef.TabIndex = 7;
@@ -101,33 +102,33 @@
             this.buttonCreateRequest.UseVisualStyleBackColor = true;
             this.buttonCreateRequest.Click += new System.EventHandler(this.buttonCreateRequest_Click);
             // 
-            // buttonUpdRequest
+            // dataGridViewT
             // 
-            this.buttonUpdRequest.Location = new System.Drawing.Point(612, 65);
-            this.buttonUpdRequest.Name = "buttonUpdRequest";
-            this.buttonUpdRequest.Size = new System.Drawing.Size(131, 32);
-            this.buttonUpdRequest.TabIndex = 10;
-            this.buttonUpdRequest.Text = "Изменить заявку";
-            this.buttonUpdRequest.UseVisualStyleBackColor = true;
+            this.dataGridViewT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewT.Location = new System.Drawing.Point(12, 198);
+            this.dataGridViewT.Name = "dataGridViewT";
+            this.dataGridViewT.Size = new System.Drawing.Size(587, 159);
+            this.dataGridViewT.TabIndex = 11;
             // 
             // FormMainAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(755, 369);
-            this.Controls.Add(this.buttonUpdRequest);
+            this.Controls.Add(this.dataGridViewT);
             this.Controls.Add(this.buttonCreateRequest);
             this.Controls.Add(this.buttonRef);
-            this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.dataGridViewM);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "FormMainAdmin";
             this.Text = "Больница";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMainAdmin_FormClosed);
             this.Load += new System.EventHandler(this.buttonRef_Click);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewM)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewT)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,13 +136,13 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.DataGridView dataGridViewM;
         private System.Windows.Forms.Button buttonRef;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem рецептыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem лекарстваToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
         private System.Windows.Forms.Button buttonCreateRequest;
-        private System.Windows.Forms.Button buttonUpdRequest;
+        private System.Windows.Forms.DataGridView dataGridViewT;
     }
 }

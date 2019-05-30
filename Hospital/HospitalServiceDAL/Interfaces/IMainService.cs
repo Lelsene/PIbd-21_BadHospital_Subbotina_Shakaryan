@@ -8,12 +8,14 @@ namespace HospitalServiceDAL.Interfaces
     {
         List<TreatmentViewModel> GetList();
 
-        TreatmentViewModel GetElement(int id);
+        List<TreatmentViewModel> GetPatientList(int PatientId);
 
-        void AddElement(TreatmentBindingModel model);
+        TreatmentViewModel GetTreatment(int id);
 
-        void UpdElement(TreatmentBindingModel model);
+        void CreateTreatment(TreatmentBindingModel model);
 
-        //void DelElement(int id);
+        void TreatmentReservation(TreatmentPrescriptionBindingModel model);
+
+        void MedicationRefill(RequestMedicationBindingModel model);
     }
 }

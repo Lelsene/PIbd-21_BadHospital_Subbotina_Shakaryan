@@ -12,6 +12,8 @@ namespace HospitalServiceDAL.BindingModels
 
         public int TotalCost { get; set; }
 
+        public bool isReserved { get; set; }
+
         public List<TreatmentPrescriptionBindingModel> TreatmentPrescriptions { get; set; }
     }
 }

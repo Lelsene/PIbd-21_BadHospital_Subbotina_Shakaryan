@@ -31,6 +31,6 @@ namespace HospitalImplementations
 
         public virtual DbSet<TreatmentPrescription> TreatmentPrescriptions { get; set; }
 
-        public virtual DbSet<RequestMedication> MedicationsRequest { get; set; }
+        public virtual DbSet<RequestMedication> RequestMedications { get; set; }
     }
 }
