@@ -49,7 +49,7 @@ namespace HospitalClientView
 
         protected void SignInButton_Click(object sender, EventArgs e)
         {
-            String email = textBoxEmail.Text;
+            //String email = textBoxEmail.Text;
             String password = textBoxPassword.Text;
 
             if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
