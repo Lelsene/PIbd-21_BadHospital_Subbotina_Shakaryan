@@ -142,6 +142,78 @@ namespace HospitalImplementations.Implementations
             }
         }
 
+        public void UpdTreatment(TreatmentBindingModel model)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Treatment element = context.Treatments.FirstOrDefault(rec =>
+                    rec.Title == model.Title && rec.Id != model.Id);
+                    if (element != null)
+                    {
+                        throw new Exception("Уже есть лечение с таким названием");
+                    }
+                    element = context.Treatments.FirstOrDefault(rec => rec.Id == model.Id);
+                    if (element == null)
+                    {
+                        throw new Exception("Элемент не найден");
+                    }
+                    element.Title = model.Title;
+                    element.TotalCost = model.TotalCost;
+                    context.SaveChanges();
+
+                    // обновляем существуюущие рецепты 
+                    var compIds = model.TreatmentPrescriptions.Select(rec => rec.PrescriptionId).Distinct();
+                    var updatePrescriptions = context.TreatmentPrescriptions.Where(rec =>
+                    rec.TreatmentId == model.Id && compIds.Contains(rec.PrescriptionId));
+                    foreach (var updatePrescription in updatePrescriptions)
+                    {
+                        updatePrescription.Count = model.TreatmentPrescriptions.FirstOrDefault(rec =>
+                        rec.Id == updatePrescription.Id).Count;
+                    }
+                    context.SaveChanges();
+                    context.TreatmentPrescriptions.RemoveRange(context.TreatmentPrescriptions.Where(rec =>
+                    rec.TreatmentId == model.Id && !compIds.Contains(rec.PrescriptionId)));
+                    context.SaveChanges();
+                    // новые записи  
+                    var groupPrescriptions = model.TreatmentPrescriptions.Where(rec =>
+                    rec.Id == 0).GroupBy(rec => rec.PrescriptionId).Select(rec => new
+                    {
+                        PrescriptionId = rec.Key,
+                        Count = rec.Sum(r => r.Count)
+                    });
+                    foreach (var groupPrescription in groupPrescriptions)
+
+                    {
+                        TreatmentPrescription elementPC = context.TreatmentPrescriptions.FirstOrDefault(rec =>
+                        rec.TreatmentId == model.Id && rec.PrescriptionId == groupPrescription.PrescriptionId);
+                        if (elementPC != null)
+                        {
+                            elementPC.Count += groupPrescription.Count;
+                            context.SaveChanges();
+                        }
+                        else
+                        {
+                            context.TreatmentPrescriptions.Add(new TreatmentPrescription
+                            {
+                                TreatmentId = model.Id,
+                                PrescriptionId = groupPrescription.PrescriptionId,
+                                Count = groupPrescription.Count
+                            });
+                            context.SaveChanges();
+                        }
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+
         public void TreatmentReservation(TreatmentPrescriptionBindingModel model)
         {
             TreatmentPrescription element = context.TreatmentPrescriptions.FirstOrDefault(rec =>

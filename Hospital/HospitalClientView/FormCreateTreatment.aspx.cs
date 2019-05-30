@@ -13,7 +13,7 @@ namespace HospitalClientView
 {
     public partial class FormCreateTreatment : System.Web.UI.Page
     {
-        private readonly IMainService service = UnityConfig.Container.Resolve<MainClientServiceDB>();
+        private readonly IMainService service = UnityConfig.Container.Resolve<MainServiceDB>();
 
         private int id;
 
@@ -27,7 +27,7 @@ namespace HospitalClientView
             {
                 try
                 {
-                    TreatmentViewModel view = service.GetElement(id);
+                    TreatmentViewModel view = service.GetTreatment(id);
                     if (view != null)
                     {
                         if (!Page.IsPostBack)
@@ -60,7 +60,6 @@ namespace HospitalClientView
                         TreatmentId = (int)Session["SETreatmentId"],
                         PrescriptionId = (int)Session["SEPrescriptionId"],
                         PrescriptionTitle = (string)Session["SEPrescriptionTitle"],
-                        isReserved = (bool)Session["SEIsReserved"],
                         Count = (int)Session["SECount"]
                     };
                     this.TreatmentPrescriptions[(int)Session["SEIs"]] = model;
@@ -73,7 +72,6 @@ namespace HospitalClientView
                         TreatmentId = (int)Session["SETreatmentId"],
                         PrescriptionId = (int)Session["SEPrescriptionId"],
                         PrescriptionTitle = (string)Session["SEPrescriptionTitle"],
-                        isReserved = (bool)Session["SEIsReserved"],
                         Count = (int)Session["SECount"]
                     };
                     this.TreatmentPrescriptions.Add(model);
@@ -95,7 +93,6 @@ namespace HospitalClientView
                     TreatmentId = this.TreatmentPrescriptions[i].TreatmentId,
                     PrescriptionId = this.TreatmentPrescriptions[i].PrescriptionId,
                     PrescriptionTitle = this.TreatmentPrescriptions[i].PrescriptionTitle,
-                    isReserved = this.TreatmentPrescriptions[i].isReserved,
                     Count = this.TreatmentPrescriptions[i].Count
                 });
             }
@@ -103,22 +100,24 @@ namespace HospitalClientView
             {
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new TreatmentBindingModel
+                    service.UpdTreatment(new TreatmentBindingModel
                     {
                         Id = id,
                         PatientId = Int32.Parse(Session["PatientId"].ToString()),
                         Title = "Введите название",
                         TotalCost = 0,
+                        isReserved = false,
                         TreatmentPrescriptions = TreatmentPrescriptionBM
                     });
                 }
                 else
                 {
-                    service.AddElement(new TreatmentBindingModel
+                    service.CreateTreatment(new TreatmentBindingModel
                     {
                         PatientId = Int32.Parse(Session["PatientId"].ToString()),
                         Title = "Введите название",
                         TotalCost = 0,
+                        isReserved = false,
                         TreatmentPrescriptions = TreatmentPrescriptionBM
                     });
                     Session["id"] = service.GetList().Last().Id.ToString();
@@ -159,12 +158,12 @@ namespace HospitalClientView
         {
             if (dataGridView.SelectedIndex >= 0)
             {
-                model = service.GetElement(id).TreatmentPrescriptions[dataGridView.SelectedIndex];
+                model = service.GetTreatment(id).TreatmentPrescriptions[dataGridView.SelectedIndex];
                 Session["SEId"] = model.Id;
                 Session["SETreatmentId"] = model.TreatmentId;
                 Session["SEPrescriptionId"] = model.PrescriptionId;
                 Session["SEPrescriptionTitle"] = model.PrescriptionTitle;
-                Session["SEIsReserved"] = model.isReserved;
+                Session["SEIsReserved"] = service.GetTreatment(id).isReserved;
                 Session["SECount"] = model.Count;
                 Session["SEIs"] = dataGridView.SelectedIndex;
                 Session["Change"] = "0";
@@ -221,28 +220,29 @@ namespace HospitalClientView
                         TreatmentId = TreatmentPrescriptions[i].TreatmentId,
                         PrescriptionId = TreatmentPrescriptions[i].PrescriptionId,
                         PrescriptionTitle = TreatmentPrescriptions[i].PrescriptionTitle,
-                        isReserved = TreatmentPrescriptions[i].isReserved,
                         Count = TreatmentPrescriptions[i].Count
                     });
                 }
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
-                    service.UpdElement(new TreatmentBindingModel
+                    service.UpdTreatment(new TreatmentBindingModel
                     {
                         Id = id,
                         PatientId = Int32.Parse(Session["PatientId"].ToString()),
                         Title = textBoxName.Text,
                         TotalCost = Convert.ToInt32(textBoxPrice.Text),
+                        isReserved = false,
                         TreatmentPrescriptions = TreatmentPrescriptionBM
                     });
                 }
                 else
                 {
-                    service.AddElement(new TreatmentBindingModel
+                    service.CreateTreatment(new TreatmentBindingModel
                     {
                         PatientId = Int32.Parse(Session["PatientId"].ToString()),
                         Title = textBoxName.Text,
                         TotalCost = Convert.ToInt32(textBoxPrice.Text),
+                        isReserved = false,
                         TreatmentPrescriptions = TreatmentPrescriptionBM
                     });
                 }

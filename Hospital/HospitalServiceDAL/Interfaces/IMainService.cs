@@ -14,6 +14,8 @@ namespace HospitalServiceDAL.Interfaces
 
         void CreateTreatment(TreatmentBindingModel model);
 
+        void UpdTreatment(TreatmentBindingModel model);
+
         void TreatmentReservation(TreatmentPrescriptionBindingModel model);
 
         void MedicationRefill(RequestMedicationBindingModel model);

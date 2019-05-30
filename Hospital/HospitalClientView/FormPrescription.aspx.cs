@@ -18,6 +18,8 @@ namespace HospitalClientView
 
         private readonly IMainService serviceM = UnityConfig.Container.Resolve<MainServiceDB>();
 
+        private TreatmentPrescriptionViewModel model;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -68,7 +70,6 @@ namespace HospitalClientView
                     Session["SETreatmentId"] = model.TreatmentId;
                     Session["SEPrescriptionId"] = model.PrescriptionId;
                     Session["SEPrescriptionTitle"] = model.PrescriptionTitle;
-                    Session["SEIsReserved"] = model.isReserved;
                     Session["SECount"] = model.Count;                    
                 }
                 else
@@ -78,7 +79,6 @@ namespace HospitalClientView
                     Session["SETreatmentId"] = model.TreatmentId;
                     Session["SEPrescriptionId"] = model.PrescriptionId;
                     Session["SEPrescriptionTitle"] = model.PrescriptionTitle;
-                    Session["SEIsReserved"] = model.isReserved;
                     Session["SECount"] = model.Count;
                     Session["Change"] = "1";
                 }
