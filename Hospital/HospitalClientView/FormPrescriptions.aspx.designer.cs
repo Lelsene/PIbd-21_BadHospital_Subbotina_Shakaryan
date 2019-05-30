@@ -22,13 +22,13 @@ namespace HospitalClientView {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// ButtonUpd элемент управления.
+        /// ButtonRef элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonUpd;
+        protected global::System.Web.UI.WebControls.Button ButtonRef;
         
         /// <summary>
         /// dataGridView элемент управления.
@@ -40,13 +40,13 @@ namespace HospitalClientView {
         protected global::System.Web.UI.WebControls.GridView dataGridView;
         
         /// <summary>
-        /// ButtonBack элемент управления.
+        /// ButtonCancel элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonBack;
+        protected global::System.Web.UI.WebControls.Button ButtonCancel;
         
         /// <summary>
         /// ObjectDataSource1 элемент управления.

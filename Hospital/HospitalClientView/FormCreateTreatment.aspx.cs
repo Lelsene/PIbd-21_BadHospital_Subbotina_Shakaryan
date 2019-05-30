@@ -15,11 +15,15 @@ namespace HospitalClientView
     {
         private readonly IMainService service = UnityConfig.Container.Resolve<MainServiceDB>();
 
+        private readonly IPrescriptionService serviceP = UnityConfig.Container.Resolve<PrescriptionServiceDB>();
+
         private int id;
 
         private List<TreatmentPrescriptionViewModel> TreatmentPrescriptions;
 
         private TreatmentPrescriptionViewModel model;
+
+        private int price;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -98,14 +102,20 @@ namespace HospitalClientView
             }
             if (TreatmentPrescriptionBM.Count != 0)
             {
+                CalcSum();
+                string name = "Введите название";
+                if (textBoxName.Text.Length != 0)
+                {
+                    name = textBoxName.Text;
+                }
                 if (Int32.TryParse((string)Session["id"], out id))
                 {
                     service.UpdTreatment(new TreatmentBindingModel
                     {
                         Id = id,
                         PatientId = Int32.Parse(Session["PatientId"].ToString()),
-                        Title = "Введите название",
-                        TotalCost = 0,
+                        Title = name,
+                        TotalCost = price,
                         isReserved = false,
                         TreatmentPrescriptions = TreatmentPrescriptionBM
                     });
@@ -115,8 +125,8 @@ namespace HospitalClientView
                     service.CreateTreatment(new TreatmentBindingModel
                     {
                         PatientId = Int32.Parse(Session["PatientId"].ToString()),
-                        Title = "Введите название",
-                        TotalCost = 0,
+                        Title = name,
+                        TotalCost = price,
                         isReserved = false,
                         TreatmentPrescriptions = TreatmentPrescriptionBM
                     });
@@ -151,7 +161,7 @@ namespace HospitalClientView
 
         protected void ButtonAdd_Click(object sender, EventArgs e)
         {
-            Server.Transfer("FormPrescription.aspx");
+            Server.Transfer("FormTreatmentPrescription.aspx");
         }
 
         protected void ButtonChange_Click(object sender, EventArgs e)
@@ -199,14 +209,9 @@ namespace HospitalClientView
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните название');</script>");
                 return;
             }
-            if (string.IsNullOrEmpty(textBoxPrice.Text))
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните цену');</script>");
-                return;
-            }
             if (TreatmentPrescriptions == null || TreatmentPrescriptions.Count == 0)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните ингредиенты');</script>");
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Добавьте рецепты');</script>");
                 return;
             }
             try
@@ -249,7 +254,7 @@ namespace HospitalClientView
                 Session["id"] = null;
                 Session["Change"] = null;
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
-                Server.Transfer("FormCocktails.aspx");
+                Server.Transfer("FormMain.aspx");
             }
             catch (Exception ex)
             {
@@ -260,23 +265,45 @@ namespace HospitalClientView
         protected void ButtonCancel_Click(object sender, EventArgs e)
         {
 
-            //if (service.GetList().Count != 0 && service.GetList().Last().CocktailName == null)
-            //{
-            //    service.DelElement(service.GetList().Last().Id);
-            //}
-            //if (!String.Equals(Session["Change"], null))
-            //{
-            //    service.DelElement(id);
-            //}
+            if (service.GetList().Count != 0 && service.GetList().Last().Title == null)
+            {
+                service.DelTreatment(service.GetList().Last().Id);
+            }
+            if (!String.Equals(Session["Change"], null))
+            {
+                service.DelTreatment(id);
+            }
             Session["id"] = null;
             Session["Change"] = null;
-            Server.Transfer("FormMainClient.aspx");
+            Server.Transfer("FormMain.aspx");
         }
+
         protected void dataGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            //e.Row.Cells[1].Visible = false;
-            //e.Row.Cells[2].Visible = false;
-            //e.Row.Cells[3].Visible = false;
+            e.Row.Cells[1].Visible = false;
+            e.Row.Cells[2].Visible = false;
+            e.Row.Cells[3].Visible = false;
+        }
+
+        private void CalcSum()
+        {
+            if (TreatmentPrescriptions.Count != 0)
+            {
+                try
+                {
+                    price = 0;
+                    for (int i = 0; i < TreatmentPrescriptions.Count; i++)
+                    {
+                        PrescriptionViewModel prescription = serviceP.GetElement(TreatmentPrescriptions[i].PrescriptionId);
+                        price += prescription.Price * TreatmentPrescriptions[i].Count;
+                    }
+                    textBoxPrice.Text = price.ToString();
+                }
+                catch (Exception ex)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('" + ex.Message + "');</script>");
+                }
+            }
         }
     }
 }

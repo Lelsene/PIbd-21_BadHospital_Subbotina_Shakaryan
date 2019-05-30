@@ -13,7 +13,7 @@ using Unity;
 
 namespace HospitalAdministrationView
 {
-    public partial class FormMainAdmin : Form
+    public partial class FormMain : Form
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
@@ -22,7 +22,7 @@ namespace HospitalAdministrationView
 
         private readonly IMedicationService serviceM;
 
-        public FormMainAdmin(IMainService serviceT, IMedicationService serviceM)
+        public FormMain(IMainService serviceT, IMedicationService serviceM)
         {
             InitializeComponent();
             this.serviceT = serviceT;

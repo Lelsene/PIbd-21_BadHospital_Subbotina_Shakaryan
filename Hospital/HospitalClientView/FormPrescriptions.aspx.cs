@@ -26,7 +26,6 @@ namespace HospitalClientView
             try
             {
                 list = service.GetList();
-                dataGridView.Columns[0].Visible = false;
             }
             catch (Exception ex)
             {
@@ -34,15 +33,15 @@ namespace HospitalClientView
             }
         }
 
-        protected void ButtonUpd_Click(object sender, EventArgs e)
+        protected void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
             Server.Transfer("FormPrescriptions.aspx");
         }
 
-        protected void ButtonBack_Click(object sender, EventArgs e)
+        protected void ButtonCancel_Click(object sender, EventArgs e)
         {
-            Server.Transfer("FormMainClient.aspx");
+            Server.Transfer("FormMain.aspx");
         }
     }
 }

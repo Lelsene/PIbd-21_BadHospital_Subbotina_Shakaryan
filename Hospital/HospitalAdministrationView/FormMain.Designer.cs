@@ -1,6 +1,6 @@
 ﻿namespace HospitalAdministrationView
 {
-    partial class FormMainAdmin
+    partial class FormMain
     {
         /// <summary>
         /// Required designer variable.

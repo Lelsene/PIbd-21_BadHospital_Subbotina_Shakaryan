@@ -24,7 +24,7 @@ namespace HospitalAdministrationView
         {
             if (textBoxPass.Text == "123")
             {
-                var form = Container.Resolve<FormMainAdmin>();
+                var form = Container.Resolve<FormMain>();
                 this.Hide();
                 form.Show();
             }

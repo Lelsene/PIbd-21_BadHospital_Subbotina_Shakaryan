@@ -48,7 +48,27 @@ namespace HospitalImplementations.Implementations
 
         public List<TreatmentViewModel> GetPatientList(int PatientId)
         {
-            throw new NotImplementedException();
+            List<TreatmentViewModel> result = context.Treatments.
+                Where(rec => rec.PatientId == PatientId).
+                Select(rec => new TreatmentViewModel
+                {
+                    Id = rec.Id,
+                    PatientId = rec.PatientId,
+                    Title = rec.Title,
+                    TotalCost = rec.TotalCost,
+                    isReserved = rec.isReserved,
+                    TreatmentPrescriptions = context.TreatmentPrescriptions
+                    .Where(recPC => recPC.TreatmentId == rec.Id)
+                    .Select(recPC => new TreatmentPrescriptionViewModel
+                    {
+                        Id = recPC.Id,
+                        TreatmentId = recPC.TreatmentId,
+                        PrescriptionId = recPC.PrescriptionId,
+                        PrescriptionTitle = recPC.Prescription.Title,
+                        Count = recPC.Count,
+                    }).ToList()
+                }).ToList();
+            return result;
         }
 
         public TreatmentViewModel GetTreatment(int id)
@@ -214,25 +234,116 @@ namespace HospitalImplementations.Implementations
             }
         }
 
-        public void TreatmentReservation(TreatmentPrescriptionBindingModel model)
+        public void DelTreatment(int id)
         {
-            TreatmentPrescription element = context.TreatmentPrescriptions.FirstOrDefault(rec =>
-            rec.PrescriptionId == model.PrescriptionId && rec.TreatmentId == model.TreatmentId);
-            if (element != null)
+            using (var transaction = context.Database.BeginTransaction())
             {
-                //element.isReserved = model.isReserved;
-            }
-            else
-            {
-                context.TreatmentPrescriptions.Add(new TreatmentPrescription
+                try
                 {
-                    PrescriptionId = model.PrescriptionId,
-                    TreatmentId = model.TreatmentId,
-                    Count = model.Count,
-                    //isReserved = model.isReserved
-                });
+                    Treatment element = context.Treatments.FirstOrDefault(rec => rec.Id == id);
+                    if (element != null)
+                    {
+                        // удаяем записи по рецептам при удалении лечения
+                        context.TreatmentPrescriptions.RemoveRange(context.TreatmentPrescriptions.Where(rec => rec.TreatmentId == id));
+                        context.Treatments.Remove(element);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new Exception("Элемент не найден");
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
             }
-            context.SaveChanges();
+        }
+
+        public void TreatmentReservation(int id)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Treatment element = context.Treatments.FirstOrDefault(rec => rec.Id == id);
+                    if (element == null)
+                    {
+                        throw new Exception("Элемент не найден");
+                    }
+                    if (element.isReserved)
+                    {
+                        throw new Exception("Лекарства по этому лечению уже зарезервированы");
+                    }
+                    else
+                    {
+                        element.isReserved = true;
+                    }
+                    List<PrescriptionMedicationViewModel> prepmed = new List<PrescriptionMedicationViewModel>();
+                    var treatmentPrescriptions = context.TreatmentPrescriptions.Where(rec => rec.TreatmentId == element.Id).Select(rec => new TreatmentPrescriptionViewModel
+                    {
+                        PrescriptionId = rec.PrescriptionId,
+                        Count = rec.Count
+                    });
+                    foreach (var pres in treatmentPrescriptions)
+                    {
+                        var prescriptionMedications = context.PrescriptionMedications.Where(rec => rec.PrescriptionId == pres.PrescriptionId).Select(rec => new PrescriptionMedicationViewModel
+                        {
+                            MedicationId = rec.MedicationId,
+                            CountMedications = rec.CountMedications
+                        });
+                        foreach (var med in prescriptionMedications)
+                        {
+                            bool flag = false;
+                            for (int i = 0; i < prepmed.Count(); i++)
+                            {
+                                if (prepmed[i].MedicationId == med.MedicationId)
+                                {
+                                    prepmed[i].CountMedications += med.CountMedications;
+                                    flag = true;
+                                }
+                            }
+                            if (!flag)
+                            {
+                                prepmed.Add(med);
+                                prepmed.Last().CountMedications = med.CountMedications * pres.Count;
+                            }
+                        }
+                    }
+                    var Medications = context.Medications.Select(rec => new MedicationViewModel
+                    {
+                        Id = rec.Id,
+                        Count = rec.Count
+                    }).ToList();
+
+                    for (int i = 0; i < prepmed.Count(); i++)
+                    {
+                        var index = prepmed[i].MedicationId;
+                        var Med = context.Medications.Where(rec => rec.Id == index);
+                        foreach (var med in Med)
+                        {
+                            if (prepmed[i].CountMedications <= med.Count)
+                            {
+                                med.Count -= prepmed[i].CountMedications;
+                                context.SaveChanges();
+                            }
+                            else
+                            {
+                                throw new Exception("Это лечение пока не доступно для бронирования, попробуйте позже");
+                            }
+                        }
+                    }
+                    context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
         }
 
         public void MedicationRefill(RequestMedicationBindingModel model)
@@ -254,6 +365,24 @@ namespace HospitalImplementations.Implementations
             }
             context.Medications.FirstOrDefault(res => res.Id == model.MedicationId).Count += model.CountMedications;
             context.SaveChanges();
+        }
+
+        public int CalcTotalCost(List<TreatmentPrescriptionBindingModel> model)
+        {
+            try
+            {
+                int TotalCost = 0;
+                for (int i = 0; i < model.Count; i++)
+                {
+                    var prep = context.Prescriptions.FirstOrDefault(rec => rec.Id == model[i].PrescriptionId);
+                    TotalCost += prep.Price * model[i].Count;
+                }
+                return TotalCost;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

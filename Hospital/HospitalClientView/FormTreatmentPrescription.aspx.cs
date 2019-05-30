@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using HospitalServiceDAL.BindingModels;
+﻿using HospitalImplementations.Implementations;
 using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
-using HospitalImplementations.Implementations;
+using System;
+using System.Collections.Generic;
+using System.Web.UI;
 using Unity;
 
 namespace HospitalClientView
 {
-    public partial class FormPrescription : System.Web.UI.Page
+    public partial class FormTreatmentPrescription : System.Web.UI.Page
     {
         private readonly IPrescriptionService serviceS = UnityConfig.Container.Resolve<PrescriptionServiceDB>();
 
@@ -70,7 +66,7 @@ namespace HospitalClientView
                     Session["SETreatmentId"] = model.TreatmentId;
                     Session["SEPrescriptionId"] = model.PrescriptionId;
                     Session["SEPrescriptionTitle"] = model.PrescriptionTitle;
-                    Session["SECount"] = model.Count;                    
+                    Session["SECount"] = model.Count;
                 }
                 else
                 {
@@ -95,10 +91,12 @@ namespace HospitalClientView
         {
             Server.Transfer("FormCreateTreatment.aspx");
         }
+
         protected void TextBoxCount_TextChanged(object sender, EventArgs e)
         {
             CalcSum();
         }
+
         private void CalcSum()
         {
             if (DropDownListPrescription.SelectedValue != null && !string.IsNullOrEmpty(TextBoxCount.Text))

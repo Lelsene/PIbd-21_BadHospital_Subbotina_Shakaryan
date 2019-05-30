@@ -24,7 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>false</IncludeIisSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -92,11 +93,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FormCreateTreatment.aspx" />
-    <Content Include="FormMainClient.aspx" />
-    <Content Include="FormPrescription.aspx" />
+    <Content Include="FormMain.aspx" />
+    <Content Include="FormTreatmentPrescription.aspx" />
     <Content Include="FormPrescriptions.aspx" />
     <Content Include="packages.config" />
-    <Content Include="libman.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -126,19 +126,19 @@
     <Compile Include="FormCreateTreatment.aspx.designer.cs">
       <DependentUpon>FormCreateTreatment.aspx</DependentUpon>
     </Compile>
-    <Compile Include="FormMainClient.aspx.cs">
-      <DependentUpon>FormMainClient.aspx</DependentUpon>
+    <Compile Include="FormMain.aspx.cs">
+      <DependentUpon>FormMain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="FormMainClient.aspx.designer.cs">
-      <DependentUpon>FormMainClient.aspx</DependentUpon>
+    <Compile Include="FormMain.aspx.designer.cs">
+      <DependentUpon>FormMain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="FormPrescription.aspx.cs">
-      <DependentUpon>FormPrescription.aspx</DependentUpon>
+    <Compile Include="FormTreatmentPrescription.aspx.cs">
+      <DependentUpon>FormTreatmentPrescription.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="FormPrescription.aspx.designer.cs">
-      <DependentUpon>FormPrescription.aspx</DependentUpon>
+    <Compile Include="FormTreatmentPrescription.aspx.designer.cs">
+      <DependentUpon>FormTreatmentPrescription.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormPrescriptions.aspx.cs">
       <DependentUpon>FormPrescriptions.aspx</DependentUpon>

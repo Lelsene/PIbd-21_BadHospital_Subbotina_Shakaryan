@@ -10,7 +10,7 @@
 namespace HospitalClientView {
     
     
-    public partial class FormPrescription {
+    public partial class FormTreatmentPrescription {
         
         /// <summary>
         /// form1 элемент управления.
