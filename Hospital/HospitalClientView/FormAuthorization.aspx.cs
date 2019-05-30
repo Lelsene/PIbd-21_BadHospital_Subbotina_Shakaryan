@@ -59,6 +59,7 @@ namespace HospitalClientView
                 {
                     if (patient.Email.Equals(email) && patient.Password.Equals(password))
                     {
+                        Session["PatientId"] = patient.Id.ToString();
                         Server.Transfer("FormMainClient.aspx");
                     }
                     else Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Нет такого пользователя');</script>");

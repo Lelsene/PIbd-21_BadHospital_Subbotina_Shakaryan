@@ -4,12 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+        <div>
             Рецепт &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:DropDownList ID="DropDownListPrescription" runat="server" Width="285px">
         </asp:DropDownList>
@@ -26,7 +26,6 @@
             <asp:Button ID="ButtonSave" runat="server" Text="Сохранить" OnClick="ButtonSave_Click" />
             &nbsp;&nbsp;
         <asp:Button ID="ButtonCancel" runat="server" Text="Отмена" OnClick="ButtonCancel_Click" />
-
         </div>
     </form>
 </body>

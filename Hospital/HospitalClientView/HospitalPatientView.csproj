@@ -105,19 +105,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AuthorizationForm.aspx" />
+    <Content Include="FormAuthorization.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="AuthorizationForm.aspx.cs">
-      <DependentUpon>AuthorizationForm.aspx</DependentUpon>
+    <Compile Include="FormAuthorization.aspx.cs">
+      <DependentUpon>FormAuthorization.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AuthorizationForm.aspx.designer.cs">
-      <DependentUpon>AuthorizationForm.aspx</DependentUpon>
+    <Compile Include="FormAuthorization.aspx.designer.cs">
+      <DependentUpon>FormAuthorization.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormCreateTreatment.aspx.cs">
       <DependentUpon>FormCreateTreatment.aspx</DependentUpon>
