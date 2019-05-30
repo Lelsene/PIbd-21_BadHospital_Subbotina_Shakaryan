@@ -366,23 +366,5 @@ namespace HospitalImplementations.Implementations
             context.Medications.FirstOrDefault(res => res.Id == model.MedicationId).Count += model.CountMedications;
             context.SaveChanges();
         }
-
-        public int CalcTotalCost(List<TreatmentPrescriptionBindingModel> model)
-        {
-            try
-            {
-                int TotalCost = 0;
-                for (int i = 0; i < model.Count; i++)
-                {
-                    var prep = context.Prescriptions.FirstOrDefault(rec => rec.Id == model[i].PrescriptionId);
-                    TotalCost += prep.Price * model[i].Count;
-                }
-                return TotalCost;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
     }
 }
