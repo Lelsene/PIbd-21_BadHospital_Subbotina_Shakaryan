@@ -2,12 +2,6 @@
 using HospitalServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
 
@@ -38,7 +32,10 @@ namespace HospitalAdministrationView
                 {
                     dataGridViewT.DataSource = listT;
                     dataGridViewT.Columns[0].Visible = false;
-                    dataGridViewT.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridViewT.Columns[1].Visible = false;
+                    dataGridViewT.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridViewT.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridViewT.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
 
                 List<MedicationViewModel> listM = serviceM.GetList();
@@ -47,6 +44,8 @@ namespace HospitalAdministrationView
                     dataGridViewM.DataSource = listM;
                     dataGridViewM.Columns[0].Visible = false;
                     dataGridViewM.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridViewT.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridViewT.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
             catch (Exception ex)

@@ -98,7 +98,7 @@ namespace HospitalAdministrationView
                     {
                         if (Medication.Id == model.MedicationId)
                         {
-                            price = Medication.Price;
+                            price = Medication.Price * model.CountMedications;
                         }
                     }
                 }

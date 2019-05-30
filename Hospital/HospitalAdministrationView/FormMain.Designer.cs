@@ -43,9 +43,14 @@
             // 
             // dataGridViewM
             // 
+            this.dataGridViewM.AllowUserToAddRows = false;
+            this.dataGridViewM.AllowUserToDeleteRows = false;
+            this.dataGridViewM.AllowUserToResizeColumns = false;
+            this.dataGridViewM.AllowUserToResizeRows = false;
             this.dataGridViewM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewM.Location = new System.Drawing.Point(12, 27);
             this.dataGridViewM.Name = "dataGridViewM";
+            this.dataGridViewM.ReadOnly = true;
             this.dataGridViewM.Size = new System.Drawing.Size(587, 154);
             this.dataGridViewM.TabIndex = 2;
             // 
@@ -104,13 +109,18 @@
             // 
             // dataGridViewT
             // 
+            this.dataGridViewT.AllowUserToAddRows = false;
+            this.dataGridViewT.AllowUserToDeleteRows = false;
+            this.dataGridViewT.AllowUserToResizeColumns = false;
+            this.dataGridViewT.AllowUserToResizeRows = false;
             this.dataGridViewT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewT.Location = new System.Drawing.Point(12, 198);
             this.dataGridViewT.Name = "dataGridViewT";
+            this.dataGridViewT.ReadOnly = true;
             this.dataGridViewT.Size = new System.Drawing.Size(587, 159);
             this.dataGridViewT.TabIndex = 11;
             // 
-            // FormMainAdmin
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -121,7 +131,7 @@
             this.Controls.Add(this.dataGridViewM);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
-            this.Name = "FormMainAdmin";
+            this.Name = "FormMain";
             this.Text = "Больница";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMainAdmin_FormClosed);
             this.Load += new System.EventHandler(this.buttonRef_Click);
