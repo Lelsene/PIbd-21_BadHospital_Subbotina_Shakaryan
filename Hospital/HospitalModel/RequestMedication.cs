@@ -2,13 +2,15 @@
 
 namespace HospitalModel
 {
-    public class MedicationRequest
+    public class RequestMedication
     {
         public int Id { get; set; }
 
         public int MedicationId { get; set; }
 
         public int RequestId { get; set; }
+
+        public string MedicationName { get; set; }
 
         [Required]
         public int CountMedications { get; set; }

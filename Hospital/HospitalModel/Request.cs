@@ -9,10 +9,12 @@ namespace HospitalModel
     {
         public int Id { get; set; }
 
+        public string RequestName { get; set; }
+
         [Required]
         public DateTime Date { get; set; }
 
         [ForeignKey("RequestId")]
-        public virtual List<MedicationRequest> MedicationRequests { get; set; }
+        public virtual List<RequestMedication> MedicationRequests { get; set; }
     }
 }

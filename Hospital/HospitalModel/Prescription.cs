@@ -16,8 +16,5 @@ namespace HospitalModel
 
         [ForeignKey("PrescriptionId")]
         public virtual List<TreatmentPrescription> TreatmentPrescriptions { get; set; }
-
-        [ForeignKey("PrescriptionId")]
-        public virtual List<PrescriptionMedication> PrescriptionMedications { get; set; }
     }
 }

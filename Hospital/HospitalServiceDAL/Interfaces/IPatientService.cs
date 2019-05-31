@@ -11,9 +11,5 @@ namespace HospitalServiceDAL.Interfaces
         PatientViewModel GetElement(string Email, string Password);
 
         void AddElement(PatientBindingModel model);
-
-        void UpdElement(PatientBindingModel model);
-
-        void DelElement(int id);
     }
 }

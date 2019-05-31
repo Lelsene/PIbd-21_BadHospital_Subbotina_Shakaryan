@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Medication.cs" />
-    <Compile Include="MedicationRequest.cs" />
+    <Compile Include="RequestMedication.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Prescription.cs" />
     <Compile Include="PrescriptionMedication.cs" />

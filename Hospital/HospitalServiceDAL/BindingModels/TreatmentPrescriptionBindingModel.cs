@@ -7,5 +7,9 @@
         public int TreatmentId { get; set; }
 
         public int PrescriptionId { get; set; }
+
+        public string PrescriptionTitle { get; set; }
+
+        public int Count { get; set; }
     }
 }

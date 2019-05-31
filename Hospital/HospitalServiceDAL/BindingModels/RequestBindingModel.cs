@@ -7,8 +7,10 @@ namespace HospitalServiceDAL.BindingModels
     {
         public int Id { get; set; }
 
+        public string RequestName { get; set; }
+
         public DateTime Date { get; set; }
 
-        public List<MedicationRequestBindingModel> MedicationRequests { get; set; }
+        public List<RequestMedicationBindingModel> RequestMedications { get; set; }
     }
 }

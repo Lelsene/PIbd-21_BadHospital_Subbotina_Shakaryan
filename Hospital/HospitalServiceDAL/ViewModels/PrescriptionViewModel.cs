@@ -10,8 +10,6 @@ namespace HospitalServiceDAL.ViewModels
 
         public int Price { get; set; }
 
-        public List<TreatmentPrescriptionViewModel> TreatmentPrescriptions { get; set; }
-
         public List<PrescriptionMedicationViewModel> PrescriptionMedications { get; set; }
     }
 }
