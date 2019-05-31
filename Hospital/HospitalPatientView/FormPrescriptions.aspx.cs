@@ -9,7 +9,7 @@ using HospitalServiceDAL.Interfaces;
 using HospitalImplementations.Implementations;
 using HospitalServiceDAL.ViewModels;
 
-namespace HospitalClientView
+namespace HospitalPatientView
 {
     public partial class FormPrescriptions : System.Web.UI.Page
     {

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FormCreateTreatment.aspx.cs" Inherits="HospitalClientView.FormCreateTreatment" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FormCreateTreatment.aspx.cs" Inherits="HospitalPatientView.FormCreateTreatment" %>
 
 <!DOCTYPE html>
 

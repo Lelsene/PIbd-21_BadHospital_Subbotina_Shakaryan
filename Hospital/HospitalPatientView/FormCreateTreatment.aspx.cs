@@ -9,7 +9,7 @@ using System.Linq;
 using System.Web.UI.WebControls;
 using Unity;
 
-namespace HospitalClientView
+namespace HospitalPatientView
 {
     public partial class FormCreateTreatment : System.Web.UI.Page
     {

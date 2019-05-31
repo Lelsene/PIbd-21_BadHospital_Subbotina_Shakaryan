@@ -7,10 +7,10 @@
 // </автоматически создаваемое>
 //------------------------------------------------------------------------------
 
-namespace HospitalClientView {
+namespace HospitalPatientView {
     
     
-    public partial class FormTreatmentPrescription {
+    public partial class AuthorizationForm {
         
         /// <summary>
         /// form1 элемент управления.
@@ -22,48 +22,48 @@ namespace HospitalClientView {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// DropDownListPrescription элемент управления.
+        /// textBoxFIO элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListPrescription;
+        protected global::System.Web.UI.WebControls.TextBox textBoxFIO;
         
         /// <summary>
-        /// TextBoxCount элемент управления.
+        /// textBoxEmail элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxCount;
+        protected global::System.Web.UI.WebControls.TextBox textBoxEmail;
         
         /// <summary>
-        /// TextBoxSum элемент управления.
+        /// textBoxPassword элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxSum;
+        protected global::System.Web.UI.WebControls.TextBox textBoxPassword;
         
         /// <summary>
-        /// ButtonSave элемент управления.
+        /// RegistrationButton элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonSave;
+        protected global::System.Web.UI.WebControls.Button RegistrationButton;
         
         /// <summary>
-        /// ButtonCancel элемент управления.
+        /// SignInButton элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonCancel;
+        protected global::System.Web.UI.WebControls.Button SignInButton;
     }
 }

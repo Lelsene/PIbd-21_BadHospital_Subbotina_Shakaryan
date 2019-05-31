@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalServiceDAL", "Hospi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalImplementations", "HospitalImplementations\HospitalImplementations.csproj", "{826D9CC5-1809-465B-A198-CBC5113B6012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalPatientView", "HospitalClientView\HospitalPatientView.csproj", "{659F575F-6315-48C1-8C79-D7FCFB27C591}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalPatientView", "HospitalPatientView\HospitalPatientView.csproj", "{659F575F-6315-48C1-8C79-D7FCFB27C591}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalAdministrationView", "HospitalAdministrationView\HospitalAdministrationView.csproj", "{5BA62B7D-FBC9-429D-914E-66F9E4D8D2A0}"
 EndProject
