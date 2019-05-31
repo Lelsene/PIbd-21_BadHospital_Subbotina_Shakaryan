@@ -7,7 +7,7 @@
 // </автоматически создаваемое>
 //------------------------------------------------------------------------------
 
-namespace HospitalClientView {
+namespace HospitalPatientView {
     
     
     public partial class FormCreateTreatment {

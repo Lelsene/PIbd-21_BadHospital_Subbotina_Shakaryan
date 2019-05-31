@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Web.UI;
 using Unity;
 
-namespace HospitalClientView
+namespace HospitalPatientView
 {
     public partial class FormTreatmentPrescription : System.Web.UI.Page
     {

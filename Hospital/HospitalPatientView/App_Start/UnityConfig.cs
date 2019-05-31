@@ -9,7 +9,7 @@ using HospitalImplementations.Implementations;
 using System.Data.Entity;
 using Unity.Lifetime;
 
-namespace HospitalClientView
+namespace HospitalPatientView
 {
     public class UnityConfig
     {
