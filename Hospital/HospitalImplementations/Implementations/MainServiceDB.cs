@@ -4,6 +4,7 @@ using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 
 namespace HospitalImplementations.Implementations
@@ -28,6 +29,9 @@ namespace HospitalImplementations.Implementations
             new TreatmentViewModel
             {
                 Id = rec.Id,
+                Date = SqlFunctions.DateName("dd", rec.Date) + " " +
+                       SqlFunctions.DateName("mm", rec.Date) + " " +
+                       SqlFunctions.DateName("yyyy", rec.Date),
                 PatientId = rec.PatientId,
                 Title = rec.Title,
                 TotalCost = rec.TotalCost,
@@ -53,6 +57,9 @@ namespace HospitalImplementations.Implementations
                 Select(rec => new TreatmentViewModel
                 {
                     Id = rec.Id,
+                    Date = SqlFunctions.DateName("dd", rec.Date) + " " +
+                           SqlFunctions.DateName("mm", rec.Date) + " " +
+                           SqlFunctions.DateName("yyyy", rec.Date),
                     PatientId = rec.PatientId,
                     Title = rec.Title,
                     TotalCost = rec.TotalCost,
@@ -79,6 +86,7 @@ namespace HospitalImplementations.Implementations
                 return new TreatmentViewModel
                 {
                     Id = element.Id,
+                    Date = element.Date.ToShortDateString(),
                     PatientId = element.PatientId,
                     Title = element.Title,
                     TotalCost = element.TotalCost,
@@ -112,6 +120,7 @@ namespace HospitalImplementations.Implementations
                     }
                     element = new Treatment
                     {
+                        Date = DateTime.Now,
                         PatientId = model.PatientId,
                         Title = model.Title,
                         TotalCost = model.TotalCost,

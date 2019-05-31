@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace HospitalServiceDAL.ViewModels
 {
     public class TreatmentViewModel
     {
         public int Id { get; set; }
+
+        public string Date { get; set; }
 
         public int PatientId { get; set; }
 

@@ -79,7 +79,7 @@ namespace HospitalPatientView
                     Session["Change"] = "1";
                 }
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
-                Server.Transfer("FormCreateTreatment.aspx");
+                Response.Redirect("FormCreateTreatment.aspx");
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace HospitalPatientView
 
         protected void ButtonCancel_Click(object sender, EventArgs e)
         {
-            Server.Transfer("FormCreateTreatment.aspx");
+            Response.Redirect("FormCreateTreatment.aspx");
         }
 
         protected void TextBoxCount_TextChanged(object sender, EventArgs e)

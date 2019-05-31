@@ -61,7 +61,7 @@ namespace HospitalPatientView
                     if (patient.Email.Equals(email) && patient.Password.Equals(password))
                     {
                         Session["PatientId"] = patient.Id.ToString();
-                        Server.Transfer("FormMain.aspx");
+                        Response.Redirect("FormMain.aspx");
                     }
                     else
                     {

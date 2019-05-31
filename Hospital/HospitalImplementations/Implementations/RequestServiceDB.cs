@@ -32,7 +32,7 @@ namespace HospitalImplementations.Implementations
                 Date = rec.Date,
                 MedicationRequests = context.RequestMedications
                     .Where(recPC => recPC.RequestId == rec.Id)
-                    .Select(recPC => new MedicationRequestViewModel
+                    .Select(recPC => new RequestMedicationViewModel
                     {
                         Id = recPC.Id,
                         MedicationId = recPC.MedicationId,
@@ -56,7 +56,7 @@ namespace HospitalImplementations.Implementations
                     Date = element.Date,
                     MedicationRequests = context.RequestMedications
                     .Where(recPC => recPC.RequestId == element.Id)
-                    .Select(recPC => new MedicationRequestViewModel
+                    .Select(recPC => new RequestMedicationViewModel
                     {
                         Id = recPC.Id,
                         MedicationId = recPC.MedicationId,

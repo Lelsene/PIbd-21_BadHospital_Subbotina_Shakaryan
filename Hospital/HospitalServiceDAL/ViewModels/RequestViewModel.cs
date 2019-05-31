@@ -11,6 +11,6 @@ namespace HospitalServiceDAL.ViewModels
 
         public DateTime Date { get; set; }
 
-        public List<MedicationRequestViewModel> MedicationRequests { get; set; }
+        public List<RequestMedicationViewModel> MedicationRequests { get; set; }
     }
 }

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingModels\MedicationBindingModel.cs" />
+    <Compile Include="BindingModels\ReportBindingModel.cs" />
     <Compile Include="BindingModels\RequestMedicationBindingModel.cs" />
     <Compile Include="BindingModels\PatientBindingModel.cs" />
     <Compile Include="BindingModels\PrescriptionBindingModel.cs" />
@@ -55,10 +56,12 @@
     <Compile Include="Interfaces\IMedicationService.cs" />
     <Compile Include="Interfaces\IPatientService.cs" />
     <Compile Include="Interfaces\IPrescriptionService.cs" />
+    <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IRequestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\MedicationRequestViewModel.cs" />
+    <Compile Include="ViewModels\RequestMedicationViewModel.cs" />
     <Compile Include="ViewModels\MedicationViewModel.cs" />
+    <Compile Include="ViewModels\PatientTreatmentsViewModel.cs" />
     <Compile Include="ViewModels\PatientViewModel.cs" />
     <Compile Include="ViewModels\PrescriptionMedicationViewModel.cs" />
     <Compile Include="ViewModels\PrescriptionViewModel.cs" />

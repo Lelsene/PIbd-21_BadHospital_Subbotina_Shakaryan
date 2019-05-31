@@ -25,25 +25,20 @@
             </Items>
         </asp:Menu>
         <asp:Button ID="ButtonCreateTreatment" runat="server" Text="Выбрать лечение" OnClick="ButtonCreateTreatment_Click" />
-        <asp:Button ID="ButtonUpdateTreatment" runat="server" Text="Изменить лечение" OnClick="ButtonUpdateTreatment_Click" />
-        <asp:Button ID="ButtonDeleteTreatment" runat="server" Text="Удалить лечение" OnClick="ButtonDeleteTreatment_Click" />
+        <asp:Button ID="ButtonReviewTreatment" runat="server" Text="Просмотреть лечение" OnClick="ButtonReviewTreatment_Click" />
         <asp:Button ID="ButtonTreatmentReservation" runat="server" Text="Зарезервировать" OnClick="ButtonTreatmentReservation_Click" />
         <asp:Button ID="ButtonRef" runat="server" Text="Обновить список" OnClick="ButtonRef_Click" />
-        <asp:GridView ID="dataGridView" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" ShowHeaderWhenEmpty="True">
+        <asp:GridView ID="dataGridView" runat="server" AutoGenerateColumns="False" ShowHeaderWhenEmpty="True">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
                 <asp:CommandField ShowSelectButton="true" SelectText=">>" />
                 <asp:BoundField DataField="Title" HeaderText="Наименование" SortExpression="Title" />
+                <asp:BoundField DataField="Date" HeaderText="Дата" SortExpression="Date" />
                 <asp:BoundField DataField="TotalCost" HeaderText="Стоимость" SortExpression="TotalCost" />
                 <asp:BoundField DataField="isReserved" HeaderText="Бронь" SortExpression="isReserved" />
             </Columns>
             <SelectedRowStyle BackColor="#CCCCCC" />
         </asp:GridView>
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DeleteMethod="TreatmentReservation" InsertMethod="CreateTreatment" SelectMethod="GetList" TypeName="HospitalImplementations.Implementations.MainServiceDB">
-            <DeleteParameters>
-                <asp:Parameter Name="id" Type="Int32" />
-            </DeleteParameters>
-        </asp:ObjectDataSource>
     </form>
 </body>
 </html>

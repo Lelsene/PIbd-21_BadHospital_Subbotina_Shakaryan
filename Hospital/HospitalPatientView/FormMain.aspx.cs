@@ -3,6 +3,7 @@ using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Web.UI;
 using Unity;
 
@@ -24,6 +25,10 @@ namespace HospitalPatientView
             try
             {
                 list = service.GetPatientList(Convert.ToInt32(Session["PatientId"]));
+                dataGridView.DataSource = list;
+                dataGridView.DataBind();
+                dataGridView.ShowHeaderWhenEmpty = true;
+                dataGridView.SelectedRowStyle.BackColor = Color.Silver;
                 dataGridView.Columns[0].Visible = false;
             }
             catch (Exception ex)
@@ -34,16 +39,16 @@ namespace HospitalPatientView
 
         protected void ButtonCreateTreatment_Click(object sender, EventArgs e)
         {
-            Server.Transfer("FormCreateTreatment.aspx");
+            Response.Redirect("FormCreateTreatment.aspx");
         }
 
-        protected void ButtonUpdateTreatment_Click(object sender, EventArgs e)
+        protected void ButtonReviewTreatment_Click(object sender, EventArgs e)
         {
             try
             {
                 string index = list[dataGridView.SelectedIndex].Id.ToString();
                 Session["id"] = index;
-                Server.Transfer("FormCreateTreatment.aspx");
+                Response.Redirect("FormReviewTreatment.aspx");
             }
             catch (Exception ex)
             {
@@ -57,7 +62,7 @@ namespace HospitalPatientView
             {
                 service.DelTreatment(list[dataGridView.SelectedIndex].Id);
                 LoadData();
-                Server.Transfer("FormMain.aspx");
+                Response.Redirect("FormMain.aspx");
             }
             catch (Exception ex)
             {
@@ -71,7 +76,7 @@ namespace HospitalPatientView
             {
                 service.TreatmentReservation(list[dataGridView.SelectedIndex].Id);
                 LoadData();
-                Server.Transfer("FormMain.aspx");
+                Response.Redirect("FormMain.aspx");
             }
             catch (Exception ex)
             {
@@ -82,7 +87,7 @@ namespace HospitalPatientView
         protected void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
-            Server.Transfer("FormMain.aspx");
+            Response.Redirect("FormMain.aspx");
         }
     }
 }

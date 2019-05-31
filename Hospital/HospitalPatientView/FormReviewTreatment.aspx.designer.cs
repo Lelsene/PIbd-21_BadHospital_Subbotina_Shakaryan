@@ -10,7 +10,7 @@
 namespace HospitalPatientView {
     
     
-    public partial class FormMain {
+    public partial class FormReviewTreatment {
         
         /// <summary>
         /// form1 элемент управления.
@@ -22,49 +22,22 @@ namespace HospitalPatientView {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Menu элемент управления.
+        /// textBoxName элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Menu Menu;
+        protected global::System.Web.UI.WebControls.TextBox textBoxName;
         
         /// <summary>
-        /// ButtonCreateTreatment элемент управления.
+        /// textBoxPrice элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonCreateTreatment;
-        
-        /// <summary>
-        /// ButtonReviewTreatment элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonReviewTreatment;
-        
-        /// <summary>
-        /// ButtonTreatmentReservation элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonTreatmentReservation;
-        
-        /// <summary>
-        /// ButtonRef элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonRef;
+        protected global::System.Web.UI.WebControls.TextBox textBoxPrice;
         
         /// <summary>
         /// dataGridView элемент управления.
@@ -74,5 +47,14 @@ namespace HospitalPatientView {
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView dataGridView;
+        
+        /// <summary>
+        /// ButtonCancel элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonCancel;
     }
 }

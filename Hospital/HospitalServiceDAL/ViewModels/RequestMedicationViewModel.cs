@@ -1,6 +1,6 @@
 ﻿namespace HospitalServiceDAL.ViewModels
 {
-    public class MedicationRequestViewModel
+    public class RequestMedicationViewModel
     {
         public int Id { get; set; }
 

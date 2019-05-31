@@ -36,12 +36,12 @@ namespace HospitalPatientView
         protected void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
-            Server.Transfer("FormPrescriptions.aspx");
+            Response.Redirect("FormPrescriptions.aspx");
         }
 
         protected void ButtonCancel_Click(object sender, EventArgs e)
         {
-            Server.Transfer("FormMain.aspx");
+            Response.Redirect("FormMain.aspx");
         }
     }
 }

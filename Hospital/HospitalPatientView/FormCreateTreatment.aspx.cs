@@ -161,7 +161,7 @@ namespace HospitalPatientView
 
         protected void ButtonAdd_Click(object sender, EventArgs e)
         {
-            Server.Transfer("FormTreatmentPrescription.aspx");
+            Response.Redirect("FormTreatmentPrescription.aspx");
         }
 
         protected void ButtonChange_Click(object sender, EventArgs e)
@@ -177,7 +177,7 @@ namespace HospitalPatientView
                 Session["SECount"] = model.Count;
                 Session["SEIs"] = dataGridView.SelectedIndex;
                 Session["Change"] = "0";
-                Server.Transfer("FormTreatmentPrescription.aspx");
+                Response.Redirect("FormTreatmentPrescription.aspx");
             }
         }
 
@@ -254,7 +254,7 @@ namespace HospitalPatientView
                 Session["id"] = null;
                 Session["Change"] = null;
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
-                Server.Transfer("FormMain.aspx");
+                Response.Redirect("FormMain.aspx");
             }
             catch (Exception ex)
             {
@@ -275,7 +275,7 @@ namespace HospitalPatientView
             }
             Session["id"] = null;
             Session["Change"] = null;
-            Server.Transfer("FormMain.aspx");
+            Response.Redirect("FormMain.aspx");
         }
 
         protected void dataGridView_RowDataBound(object sender, GridViewRowEventArgs e)
