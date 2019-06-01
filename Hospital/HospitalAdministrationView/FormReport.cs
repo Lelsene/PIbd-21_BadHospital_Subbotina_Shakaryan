@@ -1,6 +1,5 @@
 ﻿using HospitalServiceDAL.BindingModels;
 using HospitalServiceDAL.Interfaces;
-using SautinSoft;
 using System;
 using System.Windows.Forms;
 
@@ -28,24 +27,21 @@ namespace HospitalAdministrationView
             }
             try
             {
-                string path = "C:\\Users\\Шонова\\Desktop\\PatientTreatments.xls";
+                string path = "C:\\Users\\Шонова\\Desktop\\PatientTreatments.pdf";
                 serviceRep.SavePatientsTreatments(new ReportBindingModel
                 {
                     FileName = path,
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
                 });
-
-                ExcelToPdf x = new ExcelToPdf();
-                x.ConvertFile("C:\\Users\\Шонова\\Desktop\\PatientTreatments.xls", "C:\\Users\\Шонова\\Desktop\\PatientTreatments.pdf");
                 service.SendEmail("lelsene@mail.ru", "Отчет по заявкам и лечениям", "", "C:\\Users\\Шонова\\Desktop\\PatientTreatments.pdf");
+                MessageBox.Show("Отчет отправлен", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
             }
-
         }
     }
 }

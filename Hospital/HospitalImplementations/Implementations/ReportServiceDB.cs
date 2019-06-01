@@ -184,85 +184,137 @@ namespace HospitalImplementations.Implementations
 
         public void SavePatientsTreatments(ReportBindingModel model)
         {
-            SaveRequestLoad(model);
-            Thread.Sleep(5);
-            var excel = new Microsoft.Office.Interop.Excel.Application();
-            try
+            //открываем файл для работы
+            FileStream fs = new FileStream(model.FileName, FileMode.OpenOrCreate, FileAccess.Write);
+            //создаем документ, задаем границы, связываем документ и поток
+            iTextSharp.text.Document doc = new iTextSharp.text.Document();
+            doc.SetMargins(0.5f, 0.5f, 0.5f, 0.5f);
+            PdfWriter writer = PdfWriter.GetInstance(doc, fs);
+
+            doc.Open();
+            BaseFont baseFont = BaseFont.CreateFont("G:\\Desktop\\ПИбд\\4 СЕМЕСТР\\ТП\\TIMCYR.TTF", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+
+            //вставляем заголовок
+            var phraseTitle = new Phrase("Отчет",
+            new iTextSharp.text.Font(baseFont, 16, iTextSharp.text.Font.BOLD));
+            iTextSharp.text.Paragraph paragraph = new
+            iTextSharp.text.Paragraph(phraseTitle)
             {
-                excel.Workbooks.Open(model.FileName, Type.Missing, Type.Missing, Type.Missing,
-                            Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                            Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                            Type.Missing);
-                Sheets excelsheets = excel.Workbooks[1].Worksheets;
-                var excelworksheet = (Worksheet)excelsheets.get_Item(1);
-                excelworksheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
-                excelworksheet.PageSetup.CenterHorizontally = true;
-                excelworksheet.PageSetup.CenterVertically = true;
-                Microsoft.Office.Interop.Excel.Range excelcells = excelworksheet.get_Range("B1", "B1");
-                int lastRow = excelworksheet.UsedRange.Rows.Count;
+                Alignment = Element.ALIGN_CENTER,
+                SpacingAfter = 12
+            };
+            doc.Add(paragraph);
 
-                excelcells = excelcells.get_Offset(lastRow + 1, 0);
-                excelcells.Interior.Color = Color.Yellow;
-                excelcells.Font.Bold = true;
-                excelcells.Value2 = "Пациент";
-                excelcells = excelcells.get_Offset(0, 1);
-                excelcells.Interior.Color = Color.Yellow;
-                excelcells.Font.Bold = true;
-                excelcells.Value2 = "Лекарство";
-                excelcells = excelcells.get_Offset(0, 1);
-                excelcells.Interior.Color = Color.Yellow;
-                excelcells.Font.Bold = true;
-                excelcells.Value2 = "Количество";
-                excelcells = excelcells.get_Offset(-1, -2);
+            var phrasePeriod = new Phrase("c " + model.DateFrom.Value.ToShortDateString()
+                + " по " + model.DateTo.Value.ToShortDateString(), new iTextSharp.text.Font(baseFont, 14,
+                iTextSharp.text.Font.BOLD));
+            paragraph = new iTextSharp.text.Paragraph(phrasePeriod)
+            {
+                Alignment = Element.ALIGN_CENTER,
+                SpacingAfter = 12
+            };
+            doc.Add(paragraph);
 
-                var dict = GetPatientsTreatments(model);
-                if (dict != null)
+            //вставляем таблицу, задаем количество столбцов, и ширину колонок
+            PdfPTable table = new PdfPTable(3)
+            {
+                TotalWidth = 800F
+            };
+            table.SetTotalWidth(new float[] { 160, 140, 160 });
+
+            //вставляем шапку
+            PdfPCell cell = new PdfPCell();
+            var fontForCellBold = new iTextSharp.text.Font(baseFont, 10, iTextSharp.text.Font.BOLD);
+            table.AddCell(new PdfPCell(new Phrase("Пациент", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Лекарство", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Количество", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+
+            //заполняем таблицу
+            var list = GetPatientsTreatments(model);
+            var fontForCells = new iTextSharp.text.Font(baseFont, 10);
+            foreach (var pt in list)
+            {
+                cell = new PdfPCell(new Phrase(pt.FIO, fontForCells));
+                table.AddCell(cell);
                 {
-                    foreach (var pt in dict)
+                    int i = 0;
+                    foreach (var pr in pt.prescriptionList)
                     {
-                        excelcells = excelcells.get_Offset(2, 0);
-                        excelcells.Value2 = pt.FIO;
-                        excelcells = excelcells.get_Offset(0, 1);
-                        if (pt.prescriptionList.Count() > 0)
+                        foreach (var pm in pr.PrescriptionMedications)
                         {
-                            foreach (var pr in pt.prescriptionList)
-                            {
-                                var excelBorder =
-                                excelworksheet.get_Range(excelcells,
-                                            excelcells.get_Offset(pr.PrescriptionMedications.Count() - 1, 1));
-                                excelBorder.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-                                excelBorder.Borders.Weight = Microsoft.Office.Interop.Excel.XlBorderWeight.xlThin;
-                                excelBorder.HorizontalAlignment = Constants.xlCenter;
-                                excelBorder.VerticalAlignment = Constants.xlCenter;
-                                excelBorder.BorderAround(Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous,
-                                                        Microsoft.Office.Interop.Excel.XlBorderWeight.xlMedium,
-                                                        Microsoft.Office.Interop.Excel.XlColorIndex.xlColorIndexAutomatic,
-                                                        1);
-                                foreach (var pm in pr.PrescriptionMedications)
-                                {
-                                    excelcells.Value2 = pm.MedicationName;
-                                    excelcells = excelcells.get_Offset(0, 1);
-                                    excelcells.Value2 = pm.CountMedications;
-                                    excelcells = excelcells.get_Offset(1, -1);
-                                }
-                            }
+                            cell = new PdfPCell(new Phrase(pm.MedicationName, fontForCells));
+                            table.AddCell(cell);
+                            cell = new PdfPCell(new Phrase(pm.CountMedications.ToString(), fontForCells));
+                            table.AddCell(cell);
                         }
-                        excelcells = excelcells.get_Offset(0, -1);
+                        i++;
+                        if ((pt.prescriptionList.Count() > 1) && (i != pt.prescriptionList.Count()))
+                        {
+                            cell = new PdfPCell(new Phrase(" ", fontForCells));
+                            table.AddCell(cell);
+                        }
                     }
-                }
-                excel.Workbooks[1].Save();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw;
-            }
-            finally
-            {
-                excel.Quit();
-            }
 
+                }
+                cell = new PdfPCell(new Phrase("--", fontForCells));
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase("--", fontForCells));
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase("--", fontForCells));
+                table.AddCell(cell);
+            }
+            doc.Add(table);
+
+            //вставляем таблицу, задаем количество столбцов, и ширину колонок
+            PdfPTable table1 = new PdfPTable(3)
+            {
+                TotalWidth = 800F
+            };
+            table1.SetTotalWidth(new float[] { 160, 140, 160 });
+
+            //вставляем шапку
+            table1.AddCell(new PdfPCell(new Phrase("Заявка", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table1.AddCell(new PdfPCell(new Phrase("Лекарство", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table1.AddCell(new PdfPCell(new Phrase("Количество", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+
+            //заполняем таблицу
+            var listi = GetRequestLoad(model);
+            foreach (var pt in listi)
+            {
+                cell = new PdfPCell(new Phrase(pt.RequestName, fontForCells));
+                table1.AddCell(cell);
+                int i = 0;
+                foreach (var pr in pt.Medications)
+                {
+                    cell = new PdfPCell(new Phrase(pr.Item1, fontForCells));
+                    table1.AddCell(cell);
+                    cell = new PdfPCell(new Phrase(pr.Item2.ToString(), fontForCells));
+                    table1.AddCell(cell);
+                    i++;
+                }
+            }
+            doc.Add(table1);
+            doc.Close();
         }
+
 
         public List<RequestLoadViewModel> GetRequestLoad(ReportBindingModel model)
         {
@@ -451,6 +503,7 @@ namespace HospitalImplementations.Implementations
             {
                 cell = new PdfPCell(new Phrase(pt.FIO, fontForCells));
                 table.AddCell(cell);
+                int i = 0;
                 foreach (var pr in pt.prescriptionList)
                 {
                     foreach (var pm in pr.PrescriptionMedications)
@@ -460,12 +513,12 @@ namespace HospitalImplementations.Implementations
                         cell = new PdfPCell(new Phrase(pm.CountMedications.ToString(), fontForCells));
                         table.AddCell(cell);
                     }
-                    if (pt.prescriptionList.Count() > 1)
+                    i++;
+                    if ((pt.prescriptionList.Count() > 1) && (i != pt.prescriptionList.Count()))
                     {
                         cell = new PdfPCell(new Phrase(" ", fontForCells));
                         table.AddCell(cell);
                     }
-
                 }
                 cell = new PdfPCell(new Phrase("--", fontForCells));
                 table.AddCell(cell);
