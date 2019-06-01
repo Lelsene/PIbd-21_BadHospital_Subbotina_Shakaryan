@@ -94,6 +94,7 @@
   <ItemGroup>
     <Content Include="FormCreateTreatment.aspx" />
     <Content Include="FormMain.aspx" />
+    <Content Include="FormPatientTreatments.aspx" />
     <Content Include="FormReviewTreatment.aspx" />
     <Content Include="FormTreatmentPrescription.aspx" />
     <Content Include="FormPrescriptions.aspx" />
@@ -133,6 +134,13 @@
     </Compile>
     <Compile Include="FormMain.aspx.designer.cs">
       <DependentUpon>FormMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormPatientTreatments.aspx.cs">
+      <DependentUpon>FormPatientTreatments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormPatientTreatments.aspx.designer.cs">
+      <DependentUpon>FormPatientTreatments.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormReviewTreatment.aspx.cs">
       <DependentUpon>FormReviewTreatment.aspx</DependentUpon>

@@ -19,9 +19,7 @@
         <asp:Menu ID="Menu" runat="server" BackColor="White" ForeColor="Black" Height="150px">
             <Items>
                 <asp:MenuItem Text="Каталог рецептов" Value="Каталог рецептов" NavigateUrl="~/FormPrescriptions.aspx"></asp:MenuItem>
-                <asp:MenuItem Text="Отчеты" Value="Отчеты">
-                    <asp:MenuItem NavigateUrl="~/FormPatientTreatments.aspx" Text="Заказы пациента" Value="Лечения пациента"></asp:MenuItem>
-                </asp:MenuItem>
+                <asp:MenuItem Text="Отчеты" Value="Отчеты" NavigateUrl="~/FormPatientTreatments.aspx"></asp:MenuItem>
             </Items>
         </asp:Menu>
         <asp:Button ID="ButtonCreateTreatment" runat="server" Text="Выбрать лечение" OnClick="ButtonCreateTreatment_Click" />

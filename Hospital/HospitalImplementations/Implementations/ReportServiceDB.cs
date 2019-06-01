@@ -1,6 +1,8 @@
 ﻿using HospitalServiceDAL.BindingModels;
 using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
@@ -165,7 +167,6 @@ namespace HospitalImplementations.Implementations
                         }
                         i++;
                     }
-
                 }
                 excel.Workbooks[1].Save();
             }
@@ -177,6 +178,7 @@ namespace HospitalImplementations.Implementations
             finally
             {
                 excel.Quit();
+                Thread.Sleep(5);
             }
         }
 
@@ -250,7 +252,6 @@ namespace HospitalImplementations.Implementations
                 }
                 excel.Workbooks[1].Save();
             }
-
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -385,7 +386,96 @@ namespace HospitalImplementations.Implementations
             {
                 excel.Quit();
             }
+        }
 
+        public void SavePatientAllTreatments(ReportBindingModel model, int PatientId)
+        {
+            //открываем файл для работы
+            FileStream fs = new FileStream(model.FileName, FileMode.OpenOrCreate, FileAccess.Write);
+            //создаем документ, задаем границы, связываем документ и поток
+            iTextSharp.text.Document doc = new iTextSharp.text.Document();
+            doc.SetMargins(0.5f, 0.5f, 0.5f, 0.5f);
+            PdfWriter writer = PdfWriter.GetInstance(doc, fs);
+
+            doc.Open();
+            BaseFont baseFont = BaseFont.CreateFont("TIMCYR.TTF", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+
+            //вставляем заголовок
+            var phraseTitle = new Phrase("Лечения пациента",
+            new iTextSharp.text.Font(baseFont, 16, iTextSharp.text.Font.BOLD));
+            iTextSharp.text.Paragraph paragraph = new
+            iTextSharp.text.Paragraph(phraseTitle)
+            {
+                Alignment = Element.ALIGN_CENTER,
+                SpacingAfter = 12
+            };
+            doc.Add(paragraph);
+
+            var phrasePeriod = new Phrase("c " + model.DateFrom.Value.ToShortDateString()
+                + " по " + model.DateTo.Value.ToShortDateString(), new iTextSharp.text.Font(baseFont, 14,
+                iTextSharp.text.Font.BOLD));
+            paragraph = new iTextSharp.text.Paragraph(phrasePeriod)
+            {
+                Alignment = Element.ALIGN_CENTER,
+                SpacingAfter = 12
+            };
+            doc.Add(paragraph);
+
+            //вставляем таблицу, задаем количество столбцов, и ширину колонок
+            PdfPTable table = new PdfPTable(3)
+            {
+                TotalWidth = 800F
+            };
+            table.SetTotalWidth(new float[] { 160, 140, 160 });
+
+            //вставляем шапку
+            PdfPCell cell = new PdfPCell();
+            var fontForCellBold = new iTextSharp.text.Font(baseFont, 10, iTextSharp.text.Font.BOLD);
+            table.AddCell(new PdfPCell(new Phrase("Пациент", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Лекарство", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Количество", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+
+            //заполняем таблицу
+            var list = GetPatientTreatments(model, PatientId);
+            var fontForCells = new iTextSharp.text.Font(baseFont, 10);
+            foreach (var pt in list)
+            {
+                cell = new PdfPCell(new Phrase(pt.FIO, fontForCells));
+                table.AddCell(cell);
+                foreach (var pr in pt.prescriptionList)
+                {
+                    foreach (var pm in pr.PrescriptionMedications)
+                    {
+                        cell = new PdfPCell(new Phrase(pm.MedicationName, fontForCells));
+                        table.AddCell(cell);
+                        cell = new PdfPCell(new Phrase(pm.CountMedications.ToString(), fontForCells));
+                        table.AddCell(cell);
+                    }
+                    if (pt.prescriptionList.Count() > 1)
+                    {
+                        cell = new PdfPCell(new Phrase(" ", fontForCells));
+                        table.AddCell(cell);
+                    }
+
+                }
+                cell = new PdfPCell(new Phrase("--", fontForCells));
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase("--", fontForCells));
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase("--", fontForCells));
+                table.AddCell(cell);
+            }
+            doc.Add(table);
+            doc.Close();
         }
     }
 }

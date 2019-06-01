@@ -17,5 +17,7 @@ namespace HospitalServiceDAL.Interfaces
         void SavePatientTreatments(ReportBindingModel model, int PatientId);
 
         void SavePatientsTreatments(ReportBindingModel model);
+
+        void SavePatientAllTreatments(ReportBindingModel model, int PatientId);
     }
 }
