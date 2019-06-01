@@ -51,6 +51,7 @@ namespace HospitalPatientView
             container.RegisterType<IMainService, MainServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IPrescriptionService, PrescriptionServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IMedicationService, MedicationServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IReportService, ReportServiceDB>(new HierarchicalLifetimeManager());
         }
     }
 }

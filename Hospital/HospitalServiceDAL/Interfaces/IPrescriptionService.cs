@@ -1,12 +1,14 @@
 ﻿using HospitalServiceDAL.BindingModels;
-using System.Collections.Generic;
 using HospitalServiceDAL.ViewModels;
+using System.Collections.Generic;
 
 namespace HospitalServiceDAL.Interfaces
 {
     public interface IPrescriptionService
     {
         List<PrescriptionViewModel> GetList();
+
+        List<PrescriptionViewModel> GetAvailableList();
 
         PrescriptionViewModel GetElement(int id);
 

@@ -1,4 +1,5 @@
 ﻿using HospitalImplementations.Implementations;
+using HospitalServiceDAL.BindingModels;
 using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
 using System;
@@ -12,6 +13,8 @@ namespace HospitalPatientView
     public partial class FormMain : System.Web.UI.Page
     {
         private readonly IMainService service = UnityConfig.Container.Resolve<MainServiceDB>();
+
+        private readonly IReportService serviceR = UnityConfig.Container.Resolve<ReportServiceDB>();
 
         List<TreatmentViewModel> list;
 
@@ -75,6 +78,14 @@ namespace HospitalPatientView
             try
             {
                 service.TreatmentReservation(list[dataGridView.SelectedIndex].Id);
+                string path = "C:\\Users\\Шонова\\Desktop\\PatientTreatment.xls";
+                serviceR.SavePatientTreatments(new ReportBindingModel
+                {
+                    FileName = path,
+                    DateFrom = DateTime.Now,
+                    DateTo = DateTime.Now
+                }, Convert.ToInt32(Session["PatientId"]));
+                service.SendEmail(Session["PatientEmail"].ToString(), "Оповещение по резервированию", "Резервирование выполнено", path);
                 LoadData();
                 Response.Redirect("FormMain.aspx");
             }

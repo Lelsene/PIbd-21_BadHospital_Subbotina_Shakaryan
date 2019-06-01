@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Unity;
+﻿using HospitalImplementations.Implementations;
 using HospitalServiceDAL.Interfaces;
-using HospitalImplementations.Implementations;
 using HospitalServiceDAL.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Web.UI;
+using Unity;
 
 namespace HospitalPatientView
 {
@@ -25,7 +22,7 @@ namespace HospitalPatientView
         {
             try
             {
-                list = service.GetList();
+                list = service.GetAvailableList();
             }
             catch (Exception ex)
             {

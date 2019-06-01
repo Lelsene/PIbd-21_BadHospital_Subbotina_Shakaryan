@@ -4,7 +4,6 @@ using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Net;
@@ -377,7 +376,7 @@ namespace HospitalImplementations.Implementations
                 });
             }
             context.Medications.FirstOrDefault(res => res.Id == model.MedicationId).Count += model.CountMedications;
-            context.SaveChanges();            
+            context.SaveChanges();
         }
 
         public void SendEmail(string mailAddress, string subject, string text, string path)
@@ -386,7 +385,7 @@ namespace HospitalImplementations.Implementations
             SmtpClient objSmtpClient = null;
             try
             {
-                objMailMessage.From = new MailAddress(ConfigurationManager.AppSettings["MailLogin"]);
+                objMailMessage.From = new MailAddress("labwork15kafis@gmail.com");
                 objMailMessage.To.Add(new MailAddress(mailAddress));
                 objMailMessage.Subject = subject;
                 objMailMessage.Body = text;
@@ -399,8 +398,7 @@ namespace HospitalImplementations.Implementations
                 objSmtpClient.EnableSsl = true;
                 objSmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 objSmtpClient.Credentials = new
-                NetworkCredential(ConfigurationManager.AppSettings["MailLogin"],
-                ConfigurationManager.AppSettings["MailPassword"]);
+                NetworkCredential("labwork15kafis@gmail.com", "passlab15");
 
                 objSmtpClient.Send(objMailMessage);
             }

@@ -29,7 +29,7 @@ namespace HospitalAdministrationView
             try
             {
                 string path = "C:\\Users\\Шонова\\Desktop\\PatientTreatments.xls";
-                serviceRep.SavePatientTreatments(new ReportBindingModel
+                serviceRep.SavePatientsTreatments(new ReportBindingModel
                 {
                     FileName = path,
                     DateFrom = dateTimePickerFrom.Value,

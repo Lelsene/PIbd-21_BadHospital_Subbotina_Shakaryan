@@ -155,6 +155,7 @@
     <Compile Include="FormPrescriptions.aspx.designer.cs">
       <DependentUpon>FormPrescriptions.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MailClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

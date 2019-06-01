@@ -43,6 +43,44 @@ namespace HospitalImplementations.Implementations
             return result;
         }
 
+        public List<PrescriptionViewModel> GetAvailableList()
+        {
+            List<PrescriptionViewModel> result = context.Prescriptions.Select(rec => new PrescriptionViewModel
+            {
+                Id = rec.Id,
+                Title = rec.Title,
+                Price = rec.Price,
+                PrescriptionMedications = context.PrescriptionMedications
+                    .Where(recPM => recPM.PrescriptionId == rec.Id)
+                    .Select(recPM => new PrescriptionMedicationViewModel
+                    {
+                        Id = recPM.Id,
+                        PrescriptionId = recPM.PrescriptionId,
+                        MedicationId = recPM.MedicationId,
+                        MedicationName = recPM.MedicationName,
+                        CountMedications = recPM.CountMedications
+                    }).ToList()
+            }).ToList();
+
+            List<PrescriptionViewModel> neww = new List<PrescriptionViewModel>();
+            foreach (var pr in result)
+            {
+                bool add = false;
+                foreach (var m in pr.PrescriptionMedications)
+                {
+                    if (m.CountMedications <= context.Medications.FirstOrDefault(rec => rec.Id == m.MedicationId).Count)
+                    {
+                        add = true;
+                    }
+                }
+                if (add)
+                {
+                    neww.Add(pr);
+                }
+            }
+            return neww;
+        }
+
         public PrescriptionViewModel GetElement(int id)
         {
             Prescription element = context.Prescriptions.FirstOrDefault(rec => rec.Id == id);
@@ -105,9 +143,12 @@ namespace HospitalImplementations.Implementations
                     foreach (var groupMedication in groupMedications)
                     {
                         string Name = null;
-                        foreach (var medication in medicationName) {
+                        foreach (var medication in medicationName)
+                        {
                             if (groupMedication.MedicationId == medication.MedicationId)
+                            {
                                 Name = medication.MedicationName;
+                            }
                         }
                         context.PrescriptionMedications.Add(new PrescriptionMedication
                         {

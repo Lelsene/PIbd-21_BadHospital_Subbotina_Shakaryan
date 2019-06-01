@@ -20,7 +20,7 @@
             </asp:GridView>
             <br />
             <asp:Button ID="ButtonCancel" runat="server" Text="Вернуться" OnClick="ButtonCancel_Click" />
-            <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetList" TypeName="HospitalImplementations.Implementations.PrescriptionServiceDB"></asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAvailableList" TypeName="HospitalImplementations.Implementations.PrescriptionServiceDB"></asp:ObjectDataSource>
         </div>
     </form>
 </body>

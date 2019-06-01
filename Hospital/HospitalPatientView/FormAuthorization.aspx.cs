@@ -15,7 +15,7 @@ namespace HospitalPatientView
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            MailClient.Connect();
         }
 
         protected void RegistrationButton_Click(object sender, EventArgs e)
@@ -61,6 +61,7 @@ namespace HospitalPatientView
                     if (patient.Email.Equals(email) && patient.Password.Equals(password))
                     {
                         Session["PatientId"] = patient.Id.ToString();
+                        Session["PatientEmail"] = patient.Email;
                         Response.Redirect("FormMain.aspx");
                     }
                     else
