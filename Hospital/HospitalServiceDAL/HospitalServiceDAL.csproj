@@ -59,6 +59,7 @@
     <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IRequestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\RequestLoadViewModel.cs" />
     <Compile Include="ViewModels\RequestMedicationViewModel.cs" />
     <Compile Include="ViewModels\MedicationViewModel.cs" />
     <Compile Include="ViewModels\PatientTreatmentsViewModel.cs" />

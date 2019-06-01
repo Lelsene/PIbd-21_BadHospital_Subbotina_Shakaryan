@@ -4,8 +4,11 @@ using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity.SqlServer;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 
 namespace HospitalImplementations.Implementations
 {
@@ -368,12 +371,48 @@ namespace HospitalImplementations.Implementations
                 context.RequestMedications.Add(new RequestMedication
                 {
                     MedicationId = model.MedicationId,
+                    MedicationName = model.MedicationName,
                     RequestId = model.RequestId,
                     CountMedications = model.CountMedications
                 });
             }
             context.Medications.FirstOrDefault(res => res.Id == model.MedicationId).Count += model.CountMedications;
-            context.SaveChanges();
+            context.SaveChanges();            
+        }
+
+        public void SendEmail(string mailAddress, string subject, string text, string path)
+        {
+            MailMessage objMailMessage = new MailMessage();
+            SmtpClient objSmtpClient = null;
+            try
+            {
+                objMailMessage.From = new MailAddress(ConfigurationManager.AppSettings["MailLogin"]);
+                objMailMessage.To.Add(new MailAddress(mailAddress));
+                objMailMessage.Subject = subject;
+                objMailMessage.Body = text;
+                objMailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+                objMailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+                objMailMessage.Attachments.Add(new Attachment(path));
+
+                objSmtpClient = new SmtpClient("smtp.gmail.com", 587);
+                objSmtpClient.UseDefaultCredentials = false;
+                objSmtpClient.EnableSsl = true;
+                objSmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                objSmtpClient.Credentials = new
+                NetworkCredential(ConfigurationManager.AppSettings["MailLogin"],
+                ConfigurationManager.AppSettings["MailPassword"]);
+
+                objSmtpClient.Send(objMailMessage);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objMailMessage = null;
+                objSmtpClient = null;
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 using Unity;
 
@@ -19,12 +20,15 @@ namespace HospitalAdministrationView
 
         private readonly IMedicationService serviceM;
 
-        public FormRequest(IMainService service, IRequestService serviceR, IMedicationService serviceM)
+        private readonly IReportService serviceRep;
+
+        public FormRequest(IMainService service, IRequestService serviceR, IMedicationService serviceM, IReportService serviceRep)
         {
             InitializeComponent();
             this.service = service;
             this.serviceR = serviceR;
             this.serviceM = serviceM;
+            this.serviceRep = serviceRep;
         }
 
         private void FormRequest_Load(object sender, EventArgs e)
@@ -69,19 +73,28 @@ namespace HospitalAdministrationView
 
             try
             {
+                DateTime date = DateTime.Now;
+                string path = "C:\\Users\\Шонова\\Desktop\\RequestLoad.xls";
                 int Requestid = serviceR.AddElement(new RequestBindingModel
                 {
                     RequestName = textBoxRequest.Text,
                     Date = DateTime.Now
                 });
-
                 service.MedicationRefill(new RequestMedicationBindingModel
                 {
                     MedicationId = Convert.ToInt32(comboBoxMedication.SelectedValue),
+                    MedicationName = comboBoxMedication.Text,
                     RequestId = Requestid,
                     CountMedications = Convert.ToInt32(textBoxCount.Text)
                 });
-
+                serviceRep.SaveRequestLoad(new ReportBindingModel
+                {
+                    FileName = path,
+                    DateFrom = date,
+                    DateTo = DateTime.Now
+                });
+                Thread.Sleep(5);
+                service.SendEmail("lelsene@mail.ru", "Оповещение по заявке", "Заявка выполнена", path);
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

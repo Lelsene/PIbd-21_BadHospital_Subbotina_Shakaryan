@@ -21,5 +21,7 @@ namespace HospitalServiceDAL.Interfaces
         void TreatmentReservation(int id);
 
         void MedicationRefill(RequestMedicationBindingModel model);
+
+        void SendEmail(string mailAddress, string subject, string text, string path);
     }
 }

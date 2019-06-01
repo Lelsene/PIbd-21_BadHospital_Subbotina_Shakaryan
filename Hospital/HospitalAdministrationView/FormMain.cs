@@ -74,7 +74,8 @@ namespace HospitalAdministrationView
 
         private void отчетToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var form = Container.Resolve<FormReport>();
+            form.ShowDialog();
         }
 
         private void buttonCreateRequest_Click(object sender, EventArgs e)

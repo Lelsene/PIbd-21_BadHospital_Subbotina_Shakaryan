@@ -17,6 +17,7 @@ namespace HospitalAdministrationView
         [STAThread]
         static void Main()
         {
+            MailClient.Connect();
             var container = BuildUnityContainer();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -31,6 +32,7 @@ namespace HospitalAdministrationView
             currentContainer.RegisterType<IMedicationService, MedicationServiceDB>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IPrescriptionService, PrescriptionServiceDB>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IMainService, MainServiceDB>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReportService, ReportServiceDB>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
