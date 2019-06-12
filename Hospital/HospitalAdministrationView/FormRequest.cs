@@ -3,7 +3,6 @@ using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Windows.Forms;
 using Unity;
 
@@ -93,8 +92,7 @@ namespace HospitalAdministrationView
                     DateFrom = date,
                     DateTo = DateTime.Now
                 });
-                Thread.Sleep(5);
-                service.SendEmail("lelsene@mail.ru", "Оповещение по заявке", "Заявка выполнена", path);
+                //service.SendEmail("lelsene@mail.ru", "Оповещение по заявке", "Заявка выполнена", path);
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

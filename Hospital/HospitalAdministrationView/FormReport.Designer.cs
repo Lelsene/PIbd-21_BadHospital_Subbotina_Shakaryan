@@ -33,6 +33,8 @@
             this.labelTo = new System.Windows.Forms.Label();
             this.labelFrom = new System.Windows.Forms.Label();
             this.buttonMake = new System.Windows.Forms.Button();
+            this.buttonReport = new System.Windows.Forms.Button();
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.SuspendLayout();
             // 
             // dateTimePickerTo
@@ -69,7 +71,7 @@
             // 
             // buttonMake
             // 
-            this.buttonMake.Location = new System.Drawing.Point(18, 29);
+            this.buttonMake.Location = new System.Drawing.Point(327, 2);
             this.buttonMake.Name = "buttonMake";
             this.buttonMake.Size = new System.Drawing.Size(303, 26);
             this.buttonMake.TabIndex = 11;
@@ -77,11 +79,32 @@
             this.buttonMake.UseVisualStyleBackColor = true;
             this.buttonMake.Click += new System.EventHandler(this.buttonMake_Click);
             // 
+            // buttonReport
+            // 
+            this.buttonReport.Location = new System.Drawing.Point(636, 3);
+            this.buttonReport.Name = "buttonReport";
+            this.buttonReport.Size = new System.Drawing.Size(303, 26);
+            this.buttonReport.TabIndex = 12;
+            this.buttonReport.Text = "Отчет";
+            this.buttonReport.UseVisualStyleBackColor = true;
+            this.buttonReport.Click += new System.EventHandler(this.buttonReport_Click);
+            // 
+            // reportViewer
+            // 
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "HospitalAdministrationView.Report.rdlc";
+            this.reportViewer.Location = new System.Drawing.Point(12, 35);
+            this.reportViewer.Name = "reportViewer";
+            this.reportViewer.ServerReport.BearerToken = null;
+            this.reportViewer.Size = new System.Drawing.Size(917, 401);
+            this.reportViewer.TabIndex = 13;
+            // 
             // FormReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 67);
+            this.ClientSize = new System.Drawing.Size(941, 448);
+            this.Controls.Add(this.reportViewer);
+            this.Controls.Add(this.buttonReport);
             this.Controls.Add(this.buttonMake);
             this.Controls.Add(this.dateTimePickerTo);
             this.Controls.Add(this.dateTimePickerFrom);
@@ -100,5 +123,7 @@
         private System.Windows.Forms.Label labelTo;
         private System.Windows.Forms.Label labelFrom;
         private System.Windows.Forms.Button buttonMake;
+        private System.Windows.Forms.Button buttonReport;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
     }
 }

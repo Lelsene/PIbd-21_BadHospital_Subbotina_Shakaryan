@@ -15,6 +15,6 @@ namespace HospitalModel
         public DateTime Date { get; set; }
 
         [ForeignKey("RequestId")]
-        public virtual List<RequestMedication> MedicationRequests { get; set; }
+        public virtual List<RequestMedication> RequestMedications { get; set; }
     }
 }

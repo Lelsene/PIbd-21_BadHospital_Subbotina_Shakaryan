@@ -6,18 +6,16 @@ namespace HospitalServiceDAL.Interfaces
 {
     public interface IReportService
     {
-        List<PatientTreatmentsViewModel> GetPatientsTreatments(ReportBindingModel model);
+        List<ReportViewModel> GetReport(ReportBindingModel model);
 
-        List<PatientTreatmentsViewModel> GetPatientTreatments(ReportBindingModel model, int PatientId);
+        List<ReportViewModel> GetRequests(ReportBindingModel model);
 
-        List<RequestLoadViewModel> GetRequestLoad(ReportBindingModel model);
+        List<ReportViewModel> GetTreatments(ReportBindingModel model, int PatientId);
+
+        void SaveReport(ReportBindingModel model);        
+
+        void SavePatientTreatments(ReportBindingModel model, int PatientId);       
 
         void SaveRequestLoad(ReportBindingModel model);
-
-        void SavePatientTreatments(ReportBindingModel model, int PatientId);
-
-        void SavePatientsTreatments(ReportBindingModel model);
-
-        void SavePatientAllTreatments(ReportBindingModel model, int PatientId);
     }
 }
