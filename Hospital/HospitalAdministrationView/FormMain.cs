@@ -16,11 +16,14 @@ namespace HospitalAdministrationView
 
         private readonly IMedicationService serviceM;
 
-        public FormMain(IMainService serviceT, IMedicationService serviceM)
+        private readonly IBackUpService serviceB;
+
+        public FormMain(IMainService serviceT, IMedicationService serviceM, IBackUpService serviceB)
         {
             InitializeComponent();
             this.serviceT = serviceT;
             this.serviceM = serviceM;
+            this.serviceB = serviceB;
         }
 
         private void LoadData()
@@ -33,7 +36,7 @@ namespace HospitalAdministrationView
                     dataGridViewT.DataSource = listT;
                     dataGridViewT.Columns[0].Visible = false;
                     dataGridViewT.Columns[1].Visible = false;
-                    dataGridViewT.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridViewT.Columns[2].Visible = false;
                     dataGridViewT.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridViewT.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
@@ -87,6 +90,16 @@ namespace HospitalAdministrationView
         private void FormMainAdmin_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void buttonBackUpXML_Click(object sender, EventArgs e)
+        {
+            serviceB.AdminBackUpXML();
+        }
+
+        private void buttonBackUpJSON_Click(object sender, EventArgs e)
+        {
+            serviceB.AdminBackUpJSON();
         }
     }
 }

@@ -36,6 +36,8 @@
             this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonCreateRequest = new System.Windows.Forms.Button();
             this.dataGridViewT = new System.Windows.Forms.DataGridView();
+            this.buttonBackUpXML = new System.Windows.Forms.Button();
+            this.buttonBackUpJSON = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewM)).BeginInit();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewT)).BeginInit();
@@ -120,11 +122,33 @@
             this.dataGridViewT.Size = new System.Drawing.Size(587, 159);
             this.dataGridViewT.TabIndex = 11;
             // 
+            // buttonBackUpXML
+            // 
+            this.buttonBackUpXML.Location = new System.Drawing.Point(612, 103);
+            this.buttonBackUpXML.Name = "buttonBackUpXML";
+            this.buttonBackUpXML.Size = new System.Drawing.Size(131, 32);
+            this.buttonBackUpXML.TabIndex = 13;
+            this.buttonBackUpXML.Text = "Бекап БД - XML";
+            this.buttonBackUpXML.UseVisualStyleBackColor = true;
+            this.buttonBackUpXML.Click += new System.EventHandler(this.buttonBackUpXML_Click);
+            // 
+            // buttonBackUpJSON
+            // 
+            this.buttonBackUpJSON.Location = new System.Drawing.Point(612, 141);
+            this.buttonBackUpJSON.Name = "buttonBackUpJSON";
+            this.buttonBackUpJSON.Size = new System.Drawing.Size(131, 32);
+            this.buttonBackUpJSON.TabIndex = 14;
+            this.buttonBackUpJSON.Text = "Бекап БД - JSON";
+            this.buttonBackUpJSON.UseVisualStyleBackColor = true;
+            this.buttonBackUpJSON.Click += new System.EventHandler(this.buttonBackUpJSON_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(755, 369);
+            this.Controls.Add(this.buttonBackUpJSON);
+            this.Controls.Add(this.buttonBackUpXML);
             this.Controls.Add(this.dataGridViewT);
             this.Controls.Add(this.buttonCreateRequest);
             this.Controls.Add(this.buttonRef);
@@ -154,5 +178,7 @@
         private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
         private System.Windows.Forms.Button buttonCreateRequest;
         private System.Windows.Forms.DataGridView dataGridViewT;
+        private System.Windows.Forms.Button buttonBackUpXML;
+        private System.Windows.Forms.Button buttonBackUpJSON;
     }
 }

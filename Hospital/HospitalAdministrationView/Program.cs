@@ -33,6 +33,7 @@ namespace HospitalAdministrationView
             currentContainer.RegisterType<IPrescriptionService, PrescriptionServiceDB>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IMainService, MainServiceDB>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IReportService, ReportServiceDB>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IBackUpService, BackUpServiceDB>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
