@@ -22,6 +22,9 @@
                 <asp:MenuItem Text="Отчеты" Value="Отчеты" NavigateUrl="~/FormPatientTreatments.aspx"></asp:MenuItem>
             </Items>
         </asp:Menu>
+        <asp:Button ID="ButtonBackUpXML" runat="server" Text="Бекап БД - XML" OnClick="ButtonBackUpXML_Click" />
+        <asp:Button ID="ButtonBackUpJSON" runat="server" Text="Бекап БД - JSON" OnClick="ButtonBackUpJSON_Click" />
+        <br />
         <asp:Button ID="ButtonCreateTreatment" runat="server" Text="Выбрать лечение" OnClick="ButtonCreateTreatment_Click" />
         <asp:Button ID="ButtonReviewTreatment" runat="server" Text="Просмотреть лечение" OnClick="ButtonReviewTreatment_Click" />
         <asp:Button ID="ButtonTreatmentReservation" runat="server" Text="Зарезервировать" OnClick="ButtonTreatmentReservation_Click" />

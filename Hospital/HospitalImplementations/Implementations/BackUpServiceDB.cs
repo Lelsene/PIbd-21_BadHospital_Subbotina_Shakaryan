@@ -129,6 +129,129 @@ namespace HospitalImplementations.Implementations
             //SendEmail("lelsene@mail.ru", "Бекап БД в формате JSON", "", new string[] { pathM, pathPM, pathP });
         }
 
+        public void PatientBackUpXML(int PatientId)
+        {
+            var treatments = context.Treatments.Where(rec => rec.PatientId == PatientId).ToList();
+            var trprs = new List<TreatmentPrescription>();
+            foreach (var t in treatments)
+            {
+                foreach (var m in context.TreatmentPrescriptions.Where(rec => rec.TreatmentId == t.Id).ToList())
+                {
+                    trprs.Add(m);
+                }
+            }
+            var prescriptions = context.Prescriptions.ToList();
+
+            string pathT = "C:\\Users\\Шонова\\Desktop\\TreatmentsXML.xml";
+            string pathTP = "C:\\Users\\Шонова\\Desktop\\TreatmentPrescriptionsXML.xml";
+            string pathP = "C:\\Users\\Шонова\\Desktop\\PrescriptionsXML.xml";
+
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.NewLineOnAttributes = true;
+
+            using (FileStream fileStream = new FileStream(pathT, FileMode.Create))
+            {
+                using (XmlWriter writer = XmlWriter.Create(fileStream, settings))
+                {
+                    writer.WriteStartElement("Treatments");
+                    foreach (var treat in treatments)
+                    {
+                        writer.WriteStartElement("Treatment");
+                        writer.WriteElementString("Id", treat.Id.ToString());
+                        writer.WriteElementString("Date", treat.Date.ToShortDateString());
+                        writer.WriteElementString("Title", treat.Title);
+                        writer.WriteElementString("TotalCost", treat.TotalCost.ToString());
+                        writer.WriteElementString("isReserved", treat.isReserved.ToString());
+                        writer.WriteEndElement();
+                    }
+                    writer.WriteEndElement();
+                    writer.Flush();
+                }
+            }
+
+            using (FileStream fileStream = new FileStream(pathTP, FileMode.Create))
+            {
+                using (XmlWriter writer = XmlWriter.Create(fileStream, settings))
+                {
+                    writer.WriteStartElement("TreatmentPrescriptions");
+                    foreach (var tp in trprs)
+                    {
+                        writer.WriteStartElement("TreatmentPrescription");
+                        writer.WriteElementString("Id", tp.Id.ToString());
+                        writer.WriteElementString("TreatmentId", tp.TreatmentId.ToString());
+                        writer.WriteElementString("PrescriptionId", tp.PrescriptionId.ToString());
+                        writer.WriteElementString("PrescriptionTitle", tp.PrescriptionTitle);
+                        writer.WriteElementString("Count", tp.Count.ToString());
+                        writer.WriteEndElement();
+                    }
+                    writer.WriteEndElement();
+                    writer.Flush();
+                }
+            }
+
+            using (FileStream fileStream = new FileStream(pathP, FileMode.Create))
+            {
+                using (XmlWriter writer = XmlWriter.Create(fileStream, settings))
+                {
+                    writer.WriteStartElement("Prescriptions");
+                    foreach (var pres in prescriptions)
+                    {
+                        writer.WriteStartElement("Prescription");
+                        writer.WriteElementString("Id", pres.Id.ToString());
+                        writer.WriteElementString("Title", pres.Title);
+                        writer.WriteElementString("Price", pres.Price.ToString());
+                        writer.WriteEndElement();
+                    }
+                    writer.WriteEndElement();
+                    writer.Flush();
+                }
+            }
+
+            Patient patient = context.Patients.FirstOrDefault(rec => rec.Id == PatientId);
+            //SendEmail(patient.Email, "Бекап БД в формате XML", "", new string[] { pathT, pathTP, pathP });
+        }
+
+        public void PatientBackUpJSON(int PatientId)
+        {
+            string pathT = "C:\\Users\\Шонова\\Desktop\\TreatmentsJSON.json";
+            string pathTP = "C:\\Users\\Шонова\\Desktop\\TreatmentPrescriptionsJSON.json";
+            string pathP = "C:\\Users\\Шонова\\Desktop\\PrescriptionsJSON.json";
+
+
+            var treatments = context.Treatments.Where(rec => rec.PatientId == PatientId).ToList();
+            var trprs = new List<TreatmentPrescription>();
+            foreach (var t in treatments)
+            {
+                foreach (var m in context.TreatmentPrescriptions.Where(rec => rec.TreatmentId == t.Id).ToList())
+                {
+                    trprs.Add(m);
+                }
+            }
+            var prescriptions = context.Prescriptions.ToList();
+
+            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<Treatment>));
+            using (FileStream fs = new FileStream(pathT, FileMode.Create))
+            {
+                jsonFormatter.WriteObject(fs, treatments);
+            }
+
+            jsonFormatter = new DataContractJsonSerializer(typeof(List<TreatmentPrescription>));
+            using (FileStream fs = new FileStream(pathTP, FileMode.Create))
+            {
+                jsonFormatter.WriteObject(fs, trprs);
+            }
+
+            jsonFormatter = new DataContractJsonSerializer(typeof(List<Prescription>));
+            using (FileStream fs = new FileStream(pathP, FileMode.Create))
+            {
+                jsonFormatter.WriteObject(fs, prescriptions);
+            }
+
+            Patient patient = context.Patients.FirstOrDefault(rec => rec.Id == PatientId);
+            //SendEmail(patient.Email, "Бекап БД в формате JSON", "", new string[] { pathT, pathTP, pathP });
+        }
+
         public void SendEmail(string mailAddress, string subject, string text, string[] path)
         {
             MailMessage objMailMessage = new MailMessage();

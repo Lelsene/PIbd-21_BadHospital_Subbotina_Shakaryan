@@ -31,6 +31,24 @@ namespace HospitalPatientView {
         protected global::System.Web.UI.WebControls.Menu Menu;
         
         /// <summary>
+        /// ButtonBackUpXML элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonBackUpXML;
+        
+        /// <summary>
+        /// ButtonBackUpJSON элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonBackUpJSON;
+        
+        /// <summary>
         /// ButtonCreateTreatment элемент управления.
         /// </summary>
         /// <remarks>

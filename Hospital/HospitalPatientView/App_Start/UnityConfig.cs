@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Unity;
-using HospitalServiceDAL.Interfaces;
-using HospitalImplementations;
+﻿using HospitalImplementations;
 using HospitalImplementations.Implementations;
+using HospitalServiceDAL.Interfaces;
+using System;
 using System.Data.Entity;
+using Unity;
 using Unity.Lifetime;
 
 namespace HospitalPatientView
@@ -52,6 +49,7 @@ namespace HospitalPatientView
             container.RegisterType<IPrescriptionService, PrescriptionServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IMedicationService, MedicationServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IReportService, ReportServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IBackUpService, BackUpServiceDB>(new HierarchicalLifetimeManager());
         }
     }
 }

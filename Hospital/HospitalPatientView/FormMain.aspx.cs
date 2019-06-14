@@ -16,6 +16,8 @@ namespace HospitalPatientView
 
         private readonly IReportService serviceR = UnityConfig.Container.Resolve<ReportServiceDB>();
 
+        private readonly IBackUpService serviceB = UnityConfig.Container.Resolve<BackUpServiceDB>();
+
         List<TreatmentViewModel> list;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -99,6 +101,16 @@ namespace HospitalPatientView
         {
             LoadData();
             Response.Redirect("FormMain.aspx");
+        }
+
+        protected void ButtonBackUpXML_Click(object sender, EventArgs e)
+        {
+            serviceB.PatientBackUpXML(Convert.ToInt32(Session["PatientId"]));
+        }
+
+        protected void ButtonBackUpJSON_Click(object sender, EventArgs e)
+        {
+            serviceB.PatientBackUpJSON(Convert.ToInt32(Session["PatientId"]));
         }
     }
 }
