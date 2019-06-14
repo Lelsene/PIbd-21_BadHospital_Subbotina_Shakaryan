@@ -77,15 +77,15 @@ namespace HospitalPatientView
         {
             try
             {
-                service.TreatmentReservation(list[dataGridView.SelectedIndex].Id);
+                DateTime date = service.TreatmentReservation(list[dataGridView.SelectedIndex].Id);
                 string path = "C:\\Users\\Шонова\\Desktop\\PatientTreatment.xls";
-                serviceR.SavePatientTreatments(new ReportBindingModel
+                serviceR.SaveLoad(new ReportBindingModel
                 {
                     FileName = path,
-                    DateFrom = DateTime.Now,
+                    DateFrom = date,
                     DateTo = DateTime.Now
                 }, Convert.ToInt32(Session["PatientId"]));
-                service.SendEmail(Session["PatientEmail"].ToString(), "Оповещение по резервированию", "Резервирование выполнено", path);
+                //service.SendEmail(Session["PatientEmail"].ToString(), "Оповещение по резервированию", "Резервирование выполнено", path);
                 LoadData();
                 Response.Redirect("FormMain.aspx");
             }

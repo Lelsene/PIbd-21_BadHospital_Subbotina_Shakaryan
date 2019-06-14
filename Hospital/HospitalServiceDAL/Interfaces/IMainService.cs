@@ -1,5 +1,6 @@
 ﻿using HospitalServiceDAL.BindingModels;
 using HospitalServiceDAL.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace HospitalServiceDAL.Interfaces
@@ -18,7 +19,7 @@ namespace HospitalServiceDAL.Interfaces
 
         void DelTreatment(int id);
 
-        void TreatmentReservation(int id);
+        DateTime TreatmentReservation(int id);
 
         void MedicationRefill(RequestMedicationBindingModel model);
 

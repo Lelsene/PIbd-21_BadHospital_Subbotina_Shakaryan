@@ -47,7 +47,6 @@ namespace HospitalAdministrationView
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -86,12 +85,12 @@ namespace HospitalAdministrationView
                     RequestId = Requestid,
                     CountMedications = Convert.ToInt32(textBoxCount.Text)
                 });
-                serviceRep.SaveRequestLoad(new ReportBindingModel
+                serviceRep.SaveLoad(new ReportBindingModel
                 {
                     FileName = path,
                     DateFrom = date,
                     DateTo = DateTime.Now
-                });
+                }, -1);
                 //service.SendEmail("lelsene@mail.ru", "Оповещение по заявке", "Заявка выполнена", path);
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);

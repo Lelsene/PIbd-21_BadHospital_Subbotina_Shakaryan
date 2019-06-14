@@ -8,6 +8,7 @@ using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading;
 
 namespace HospitalImplementations.Implementations
 {
@@ -273,7 +274,7 @@ namespace HospitalImplementations.Implementations
             }
         }
 
-        public void TreatmentReservation(int id)
+        public DateTime TreatmentReservation(int id)
         {
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -348,6 +349,8 @@ namespace HospitalImplementations.Implementations
                     }
                     context.SaveChanges();
                     transaction.Commit();
+
+                    return element.Date;
                 }
                 catch (Exception)
                 {

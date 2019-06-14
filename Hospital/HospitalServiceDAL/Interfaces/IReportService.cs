@@ -12,10 +12,10 @@ namespace HospitalServiceDAL.Interfaces
 
         List<ReportViewModel> GetTreatments(ReportBindingModel model, int PatientId);
 
-        void SaveReport(ReportBindingModel model);        
+        void SaveReport(ReportBindingModel model);
 
-        void SavePatientTreatments(ReportBindingModel model, int PatientId);       
+        void SaveTreatments(ReportBindingModel model, int PatientId);
 
-        void SaveRequestLoad(ReportBindingModel model);
+        void SaveLoad(ReportBindingModel model, int PatientId);
     }
 }

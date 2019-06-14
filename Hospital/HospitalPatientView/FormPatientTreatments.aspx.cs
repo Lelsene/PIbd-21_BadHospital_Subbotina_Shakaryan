@@ -1,5 +1,6 @@
 ﻿using HospitalServiceDAL.BindingModels;
 using HospitalServiceDAL.Interfaces;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Web.UI;
 using Unity;
@@ -8,8 +9,6 @@ namespace HospitalPatientView
 {
     public partial class FormPatientTreatments : System.Web.UI.Page
     {
-        private readonly IMainService service = UnityConfig.Container.Resolve<IMainService>();
-
         private readonly IReportService serviceR = UnityConfig.Container.Resolve<IReportService>();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -26,14 +25,29 @@ namespace HospitalPatientView
             }
             try
             {
-                string path = "C:\\Users\\Шонова\\Desktop\\PatientAllTreatment.pdf";
-                serviceR.SavePatientAllTreatments(new ReportBindingModel
+                ReportParameter parameter = new ReportParameter("ReportParameterPeriod",
+                                            "c " + Calendar1.SelectedDate.ToShortDateString() +
+                                            " по " + Calendar2.SelectedDate.ToShortDateString());
+                ReportViewer.LocalReport.SetParameters(parameter);
+
+                var dataSource = serviceR.GetTreatments(new ReportBindingModel
+                {
+                    DateFrom = Calendar1.SelectedDate,
+                    DateTo = Calendar2.SelectedDate
+                }, Convert.ToInt32(Session["PatientId"]));
+
+                ReportDataSource source = new ReportDataSource("DataSet", dataSource);
+                ReportViewer.LocalReport.DataSources.Add(source);
+                ReportViewer.DataBind();
+
+                string path = "C:\\Users\\Шонова\\Desktop\\Treatments.pdf";
+                serviceR.SaveTreatments(new ReportBindingModel
                 {
                     FileName = path,
                     DateFrom = Calendar1.SelectedDate,
                     DateTo = Calendar2.SelectedDate
                 }, Convert.ToInt32(Session["PatientId"]));
-                service.SendEmail(Session["PatientEmail"].ToString(), "Лечения пациента", "", path);
+                //service.SendEmail(Session["PatientEmail"].ToString(), "Лечения пациента", "", path);
             }
             catch (Exception ex)
             {
