@@ -61,9 +61,11 @@ namespace HospitalAdministrationView
             });
 
             ReportParameter parameter = new ReportParameter("ReportParameterPeriod",
-                                        "c " + dateTimePickerFrom.Value.ToShortDateString() + " по " +
-                                        dateTimePickerTo.Value.ToShortDateString());
+                                        "c " + dateTimePickerFrom.Value.ToShortDateString() +
+                                        " по " + dateTimePickerTo.Value.ToShortDateString());
+
             reportViewer.LocalReport.SetParameters(parameter);
+            reportViewer.LocalReport.DataSources.Clear();
             ReportDataSource source = new ReportDataSource("DataSet", list);
             reportViewer.LocalReport.DataSources.Add(source);
             reportViewer.RefreshReport();
