@@ -35,7 +35,7 @@ namespace HospitalAdministrationView
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
                 });
-                service.SendEmail("lelsene@mail.ru", "Отчет по заявкам и лечениям", "", "C:\\Users\\Шонова\\Desktop\\AdminReport.pdf");
+                //service.SendEmail("lelsene@mail.ru", "Отчет по заявкам и лечениям", "", "C:\\Users\\Шонова\\Desktop\\AdminReport.pdf");
                 MessageBox.Show("Отчет отправлен", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)

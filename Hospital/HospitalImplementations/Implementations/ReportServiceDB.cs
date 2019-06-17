@@ -6,6 +6,8 @@ using iTextSharp.text.pdf;
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -40,37 +42,43 @@ namespace HospitalImplementations.Implementations
 
         public List<ReportViewModel> GetRequests(ReportBindingModel model)
         {
-            List<ReportViewModel> list = new List<ReportViewModel>();
-
-            foreach (var o in context.Requests.Where(rec => rec.Date >= model.DateFrom && rec.Date <= model.DateTo))
-            {
-                int i = 0;
-                foreach (var med in context.RequestMedications.Where(rec => rec.RequestId == o.Id))
+            return context.RequestMedications
+                .Include(rec => rec.Request)
+                .Include(rec => rec.Medication)
+                .Where(rec => rec.Request.Date >= model.DateFrom && rec.Request.Date <= model.DateTo)
+                .Select(rec => new ReportViewModel
                 {
-                    ReportViewModel rep = new ReportViewModel();
-                    if (i < 1)
-                    {
-                        rep.FIO = "Admin";
-                        rep.Title = o.RequestName;
-                        rep.Date = o.Date.ToShortDateString();
-                    }
-                    else
-                    {
-                        rep.FIO = " ";
-                        rep.Title = " ";
-                        rep.Date = " ";
-                    }
-                    rep.MedicationName = med.MedicationName;
-                    rep.MedicationCount = med.CountMedications;
-                    list.Add(rep);
-                    i++;
-                }
-            }
-            return list;
+                    Title = rec.Request.RequestName,
+                    Date = SqlFunctions.DateName("dd", rec.Request.Date) + " " +
+                           SqlFunctions.DateName("mm", rec.Request.Date) + " " +
+                           SqlFunctions.DateName("yyyy", rec.Request.Date),
+                    FIO = "Admin",
+                    MedicationName = rec.MedicationName,
+                    MedicationCount = rec.CountMedications
+                })
+                .ToList();
         }
 
         public List<ReportViewModel> GetTreatments(ReportBindingModel model, int PatientId)
         {
+            //return context.TreatmentPrescriptions
+            //    .Include(rec => rec.Treatment)
+            //    .Include(rec => rec.Treatment.Patient)
+            //    .Include(rec => rec.Prescription)
+            //    .Include(rec => rec.Prescription.PrescriptionMedications)
+            //    .Where(rec => rec.Treatment.Date >= model.DateFrom && rec.Treatment.Date <= model.DateTo)
+            //    .Select(rec => new ReportViewModel
+            //    {
+            //        Title = rec.Treatment.Title,
+            //        Date = SqlFunctions.DateName("dd", rec.Treatment.Date) + " " +
+            //               SqlFunctions.DateName("mm", rec.Treatment.Date) + " " +
+            //               SqlFunctions.DateName("yyyy", rec.Treatment.Date),
+            //        FIO = rec.Treatment.Patient.FIO,
+            //        MedicationName = rec.Prescription.PrescriptionMedications.FirstOrDefault(recP => recP.PrescriptionId == rec.Prescription.Id).MedicationName,
+            //        MedicationCount = rec.Count * rec.Prescription.PrescriptionMedications.FirstOrDefault(recP => recP.PrescriptionId == rec.Prescription.Id).CountMedications
+            //    })
+            //    .ToList();
+
             List<ReportViewModel> list = new List<ReportViewModel>();
 
             if (PatientId != -1)
@@ -150,7 +158,7 @@ namespace HospitalImplementations.Implementations
                 PdfWriter writer = PdfWriter.GetInstance(doc, fs);
 
                 doc.Open();
-                BaseFont baseFont = BaseFont.CreateFont("G:\\Desktop\\ПИбд\\4 СЕМЕСТР\\ТП\\TIMCYR.TTF", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+                BaseFont baseFont = BaseFont.CreateFont(@"C:\Windows\Fonts\Tahoma.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
 
                 //вставляем заголовок
                 var phraseTitle = new Phrase("Отчет",
