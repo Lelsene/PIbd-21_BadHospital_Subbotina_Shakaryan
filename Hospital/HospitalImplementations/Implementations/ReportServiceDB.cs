@@ -61,24 +61,6 @@ namespace HospitalImplementations.Implementations
 
         public List<ReportViewModel> GetTreatments(ReportBindingModel model, int PatientId)
         {
-            //return context.TreatmentPrescriptions
-            //    .Include(rec => rec.Treatment)
-            //    .Include(rec => rec.Treatment.Patient)
-            //    .Include(rec => rec.Prescription)
-            //    .Include(rec => rec.Prescription.PrescriptionMedications)
-            //    .Where(rec => rec.Treatment.Date >= model.DateFrom && rec.Treatment.Date <= model.DateTo)
-            //    .Select(rec => new ReportViewModel
-            //    {
-            //        Title = rec.Treatment.Title,
-            //        Date = SqlFunctions.DateName("dd", rec.Treatment.Date) + " " +
-            //               SqlFunctions.DateName("mm", rec.Treatment.Date) + " " +
-            //               SqlFunctions.DateName("yyyy", rec.Treatment.Date),
-            //        FIO = rec.Treatment.Patient.FIO,
-            //        MedicationName = rec.Prescription.PrescriptionMedications.FirstOrDefault(recP => recP.PrescriptionId == rec.Prescription.Id).MedicationName,
-            //        MedicationCount = rec.Count * rec.Prescription.PrescriptionMedications.FirstOrDefault(recP => recP.PrescriptionId == rec.Prescription.Id).CountMedications
-            //    })
-            //    .ToList();
-
             List<ReportViewModel> list = new List<ReportViewModel>();
 
             if (PatientId != -1)

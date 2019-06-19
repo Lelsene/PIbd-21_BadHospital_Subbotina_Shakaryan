@@ -34,7 +34,7 @@ namespace HospitalAdministrationView
         {
             try
             {
-                List<MedicationViewModel> listM = serviceM.GetList();
+                List<MedicationViewModel> listM = serviceM.GetMostList();
                 if (listM != null)
                 {
                     comboBoxMedication.DisplayMember = "Name";

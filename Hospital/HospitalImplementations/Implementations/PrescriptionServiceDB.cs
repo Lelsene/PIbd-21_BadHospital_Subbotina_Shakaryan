@@ -61,9 +61,9 @@ namespace HospitalImplementations.Implementations
                                     {
                                         PrescriptionId = rec.Key,
                                         Count = rec.Sum(r => r.Price)
-                                    });
-
-            groupPrescriptons.OrderBy(rec => rec.Count);
+                                    })
+                                    .OrderByDescending(rec => rec.Count)
+                                    .ToList();
 
             List<PrescriptionViewModel> result = new List<PrescriptionViewModel>();
             foreach (var pre in groupPrescriptons)

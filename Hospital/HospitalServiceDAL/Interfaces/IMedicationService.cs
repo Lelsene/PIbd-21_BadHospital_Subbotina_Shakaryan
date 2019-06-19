@@ -8,6 +8,8 @@ namespace HospitalServiceDAL.Interfaces
     {
         List<MedicationViewModel> GetList();
 
+        List<MedicationViewModel> GetMostList();
+
         MedicationViewModel GetElement(int id);
 
         void AddElement(MedicationBindingModel model);
