@@ -22,7 +22,7 @@ namespace HospitalPatientView
             {
                 try
                 {
-                    List<PrescriptionViewModel> listP = serviceS.GetList();
+                    List<PrescriptionViewModel> listP = serviceS.GetClientList(Convert.ToInt32(Session["PatientId"]));
                     if (listP != null)
                     {
                         DropDownListPrescription.DataSource = listP;

@@ -4,6 +4,7 @@ using HospitalServiceDAL.Interfaces;
 using HospitalServiceDAL.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace HospitalImplementations.Implementations
@@ -40,6 +41,52 @@ namespace HospitalImplementations.Implementations
                         CountMedications = recPM.CountMedications
                     }).ToList()
             }).ToList();
+            return result;
+        }
+
+        public List<PrescriptionViewModel> GetClientList(int PatientId)
+        {
+            var groupPrescriptons = context.TreatmentPrescriptions
+                                    .Include(rec => rec.Prescription)
+                                    .Include(rec => rec.Treatment)
+                                    .Where(rec => rec.Treatment.PatientId == PatientId)
+                                    .Select(rec => new PrescriptionViewModel
+                                    {
+                                        Id = rec.PrescriptionId,
+                                        Title = rec.PrescriptionTitle,
+                                        Price = rec.Count
+                                    })
+                                    .GroupBy(rec => rec.Id)
+                                    .Select(rec => new
+                                    {
+                                        PrescriptionId = rec.Key,
+                                        Count = rec.Sum(r => r.Price)
+                                    });
+
+            groupPrescriptons.OrderBy(rec => rec.Count);
+
+            List<PrescriptionViewModel> result = new List<PrescriptionViewModel>();
+            foreach (var pre in groupPrescriptons)
+            {
+                var pres = context.Prescriptions.FirstOrDefault(rec => rec.Id == pre.PrescriptionId);
+                result.Add(new PrescriptionViewModel
+                {
+                    Id = pres.Id,
+                    Title = pres.Title,
+                    Price = pres.Price,
+                    PrescriptionMedications = context.PrescriptionMedications
+                                              .Where(recPM => recPM.PrescriptionId == pres.Id)
+                                              .Select(recPM => new PrescriptionMedicationViewModel
+                                              {
+                                                  Id = recPM.Id,
+                                                  PrescriptionId = recPM.PrescriptionId,
+                                                  MedicationId = recPM.MedicationId,
+                                                  MedicationName = recPM.MedicationName,
+                                                  CountMedications = recPM.CountMedications
+                                              }).ToList()
+                });
+            }
+
             return result;
         }
 

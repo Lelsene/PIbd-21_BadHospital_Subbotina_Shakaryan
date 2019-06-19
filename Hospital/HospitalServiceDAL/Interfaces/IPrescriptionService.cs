@@ -10,6 +10,8 @@ namespace HospitalServiceDAL.Interfaces
 
         List<PrescriptionViewModel> GetAvailableList();
 
+        List<PrescriptionViewModel> GetClientList(int PatientId);
+
         PrescriptionViewModel GetElement(int id);
 
         void AddElement(PrescriptionBindingModel model);
