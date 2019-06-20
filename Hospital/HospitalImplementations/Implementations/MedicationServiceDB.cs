@@ -79,6 +79,28 @@ namespace HospitalImplementations.Implementations
                 });
             }
 
+            foreach (var el in context.Medications)
+            {
+                bool flag = false;
+                foreach (var med in result)
+                {
+                    if (el.Id == med.Id)
+                    {
+                        flag = true;
+                    }
+                }
+                if (!flag)
+                {
+                    result.Add(new MedicationViewModel
+                    {
+                        Id = el.Id,
+                        Name = el.Name,
+                        Price = el.Price,
+                        Count = el.Count
+                    });
+                }
+            }
+
             return result;
         }
 
