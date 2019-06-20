@@ -11,6 +11,8 @@ namespace HospitalPatientView
     {
         private readonly IReportService serviceR = UnityConfig.Container.Resolve<IReportService>();
 
+        private readonly IMainService service = UnityConfig.Container.Resolve<IMainService>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -47,7 +49,7 @@ namespace HospitalPatientView
                     DateFrom = Calendar1.SelectedDate,
                     DateTo = Calendar2.SelectedDate
                 }, Convert.ToInt32(Session["PatientId"]));
-                //service.SendEmail(Session["PatientEmail"].ToString(), "Лечения пациента", "", path);
+                service.SendEmail(Session["PatientEmail"].ToString(), "Лечения пациента", "", path);
             }
             catch (Exception ex)
             {

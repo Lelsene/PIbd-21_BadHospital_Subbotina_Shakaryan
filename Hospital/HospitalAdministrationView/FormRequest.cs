@@ -89,9 +89,9 @@ namespace HospitalAdministrationView
                 {
                     FileName = path,
                     DateFrom = date,
-                    DateTo = DateTime.Now
+                    DateTo = date.AddMilliseconds(100)
                 }, -1);
-                //service.SendEmail("lelsene@mail.ru", "Оповещение по заявке", "Заявка выполнена", path);
+                service.SendEmail("lelsene@mail.ru", "Оповещение по заявке", "Заявка выполнена", path);
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

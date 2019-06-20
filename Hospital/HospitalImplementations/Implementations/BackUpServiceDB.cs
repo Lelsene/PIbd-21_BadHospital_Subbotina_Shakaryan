@@ -95,7 +95,7 @@ namespace HospitalImplementations.Implementations
                     writer.Flush();
                 }
             }
-            //SendEmail("lelsene@mail.ru", "Бекап БД в формате XML", "", new string[] { pathM, pathPM, pathP });
+            SendEmail("lelsene@mail.ru", "Бекап БД в формате XML", "", new string[] { pathM, pathPM, pathP });
         }
 
         public void AdminBackUpJSON()
@@ -126,7 +126,7 @@ namespace HospitalImplementations.Implementations
                 jsonFormatter.WriteObject(fs, prescriptions);
             }
 
-            //SendEmail("lelsene@mail.ru", "Бекап БД в формате JSON", "", new string[] { pathM, pathPM, pathP });
+            SendEmail("lelsene@mail.ru", "Бекап БД в формате JSON", "", new string[] { pathM, pathPM, pathP });
         }
 
         public void PatientBackUpXML(int PatientId)
@@ -209,7 +209,7 @@ namespace HospitalImplementations.Implementations
             }
 
             Patient patient = context.Patients.FirstOrDefault(rec => rec.Id == PatientId);
-            //SendEmail(patient.Email, "Бекап БД в формате XML", "", new string[] { pathT, pathTP, pathP });
+            SendEmail(patient.Email, "Бекап БД в формате XML", "", new string[] { pathT, pathTP, pathP });
         }
 
         public void PatientBackUpJSON(int PatientId)
@@ -249,7 +249,7 @@ namespace HospitalImplementations.Implementations
             }
 
             Patient patient = context.Patients.FirstOrDefault(rec => rec.Id == PatientId);
-            //SendEmail(patient.Email, "Бекап БД в формате JSON", "", new string[] { pathT, pathTP, pathP });
+            SendEmail(patient.Email, "Бекап БД в формате JSON", "", new string[] { pathT, pathTP, pathP });
         }
 
         public void SendEmail(string mailAddress, string subject, string text, string[] path)

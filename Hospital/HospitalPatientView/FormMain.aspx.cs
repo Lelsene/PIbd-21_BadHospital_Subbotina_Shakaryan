@@ -85,9 +85,9 @@ namespace HospitalPatientView
                 {
                     FileName = path,
                     DateFrom = date,
-                    DateTo = DateTime.Now
+                    DateTo = date.AddMilliseconds(100)
                 }, Convert.ToInt32(Session["PatientId"]));
-                //service.SendEmail(Session["PatientEmail"].ToString(), "Оповещение по резервированию", "Резервирование выполнено", path);
+                service.SendEmail(Session["PatientEmail"].ToString(), "Оповещение по резервированию", "Резервирование выполнено", path);
                 LoadData();
                 Response.Redirect("FormMain.aspx");
             }

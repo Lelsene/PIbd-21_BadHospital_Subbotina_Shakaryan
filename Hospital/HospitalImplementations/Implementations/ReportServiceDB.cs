@@ -439,6 +439,7 @@ namespace HospitalImplementations.Implementations
                     }
                 }
                 excel.Workbooks[1].Save();
+                excel.Workbooks.Close();
             }
             catch (Exception ex)
             {

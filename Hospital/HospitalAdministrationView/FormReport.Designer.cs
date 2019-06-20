@@ -95,14 +95,14 @@
             this.reportViewer.Location = new System.Drawing.Point(12, 35);
             this.reportViewer.Name = "reportViewer";
             this.reportViewer.ServerReport.BearerToken = null;
-            this.reportViewer.Size = new System.Drawing.Size(917, 401);
+            this.reportViewer.Size = new System.Drawing.Size(917, 556);
             this.reportViewer.TabIndex = 13;
             // 
             // FormReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(941, 448);
+            this.ClientSize = new System.Drawing.Size(941, 603);
             this.Controls.Add(this.reportViewer);
             this.Controls.Add(this.buttonReport);
             this.Controls.Add(this.buttonMake);
