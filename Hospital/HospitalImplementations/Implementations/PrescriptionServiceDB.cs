@@ -87,6 +87,37 @@ namespace HospitalImplementations.Implementations
                 });
             }
 
+            foreach (var el in context.Prescriptions)
+            {
+                bool flag = false;
+                foreach (var pre in result)
+                {
+                    if (el.Id == pre.Id)
+                    {
+                        flag = true;
+                    }
+                }
+                if (!flag)
+                {
+                    result.Add(new PrescriptionViewModel
+                    {
+                        Id = el.Id,
+                        Title = el.Title,
+                        Price = el.Price,
+                        PrescriptionMedications = context.PrescriptionMedications
+                                              .Where(recPM => recPM.PrescriptionId == el.Id)
+                                              .Select(recPM => new PrescriptionMedicationViewModel
+                                              {
+                                                  Id = recPM.Id,
+                                                  PrescriptionId = recPM.PrescriptionId,
+                                                  MedicationId = recPM.MedicationId,
+                                                  MedicationName = recPM.MedicationName,
+                                                  CountMedications = recPM.CountMedications
+                                              }).ToList()
+                    });
+                }
+            }
+
             return result;
         }
 
